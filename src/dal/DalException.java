@@ -9,7 +9,7 @@ package dal;
  *
  * @author LeChampDK
  */
-public class DalExeption
+public class DalException extends Exception
 {
     
 }
