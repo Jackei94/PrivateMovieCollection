@@ -1,0 +1,4 @@
+user=CSe19A_10
+password=CSe19A_10
+database=PMC-GruppeSex
+server=10.176.111.31
