@@ -11,7 +11,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -20,15 +23,28 @@ import javafx.scene.control.Label;
 public class MainController implements Initializable
 {
     
-    @FXML
     private Label label;
-    
     @FXML
-    private void handleButtonAction(ActionEvent event)
-    {
-        System.out.println("You clicked me!");
-        label.setText("You win bro!");
-    }
+    private ListView<?> categoryView;
+    @FXML
+    private Button categoryNewButton;
+    @FXML
+    private Button categoryEditButton;
+    @FXML
+    private Button categoryDeleteButton;
+    @FXML
+    private ListView<?> movieView;
+    @FXML
+    private Button movieNewButton;
+    @FXML
+    private Button movieEditButton;
+    @FXML
+    private Button movieDeleteButton;
+    @FXML
+    private Button moviePlayButton;
+    @FXML
+    private TextField searchField;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
