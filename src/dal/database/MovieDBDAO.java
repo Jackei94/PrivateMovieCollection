@@ -49,7 +49,7 @@ public class MovieDBDAO implements IMovieDao
             {
                 // Add all to a list
                 Movie movie = new Movie();
-                movie.setId(rs.getInt("id"));
+               // movie.setId(rs.getInt("id"));
                 movie.setName(rs.getString("name"));
                 movie.setRating(rs.getDouble("rating"));
                 movie.setFilelink(rs.getString("filelink"));

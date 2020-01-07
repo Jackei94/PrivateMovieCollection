@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.MainController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
    <children>
       <HBox layoutX="50.0" layoutY="100.0" prefHeight="450.0" prefWidth="700.0">
          <children>
@@ -49,19 +49,19 @@
                   <ListView fx:id="movieView" prefHeight="400.0" prefWidth="345.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="movieNewButton" mnemonicParsing="false" text="New">
+                        <Button fx:id="movieNew" mnemonicParsing="false" onAction="#movieNewButton" text="New">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="movieEditButton" mnemonicParsing="false" text="Edit">
+                        <Button fx:id="movieEditButton" mnemonicParsing="false" onAction="#movieEditButton" text="Edit">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
                         <Button fx:id="movieDeleteButton" mnemonicParsing="false" text="Delete">
                            <HBox.margin>
-                              <Insets right="30.0" />
+                              <Insets right="45.0" />
                            </HBox.margin>
                         </Button>
                         <Button fx:id="moviePlayButton" mnemonicParsing="false" text="Play movie in mediaplayer" />
@@ -80,5 +80,6 @@
             <Font name="Impact" size="30.0" />
          </font>
       </Label>
+      <Button fx:id="exitApp" layoutX="721.0" layoutY="550.0" mnemonicParsing="false" onAction="#exitApp" text=":'C" />
    </children>
 </AnchorPane>
