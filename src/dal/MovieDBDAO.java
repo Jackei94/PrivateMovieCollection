@@ -7,6 +7,7 @@ package dal;
 
 import be.Movie;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -63,5 +64,36 @@ public class MovieDBDAO
             throw new DalException();
         }
     }
+    
+    public void createMovie(Movie movie) throws DalException
+    {
+        // Attempts to connect to the database.
+        try (Connection con = dbCon.getConnection())
+        {
+            // SQL code
+            String sql = "INSERT INTO Movie (name, rating, filelink, lastview) VALUES (?,?,?,?);";
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            // Sets the Strings
+            ps.setString(1, movie.getName());
+            ps.setInt(2, movie.getRating());
+            ps.setString(3, movie.getFilelink());
+            ps.setInt(4, movie.getLastview());
 
+            // Attempts to update the database
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows < 1)
+            {
+                throw new SQLException("Can't save movie");
+            }
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next())
+            {
+                movie.setId(rs.getInt(1));
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
