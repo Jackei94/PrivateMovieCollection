@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dal;
+package dal.database;
 
+import dal.database.DatabaseConnector;
 import be.Movie;
+import dal.DalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,12 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import dal.IMovieDao;
 
 /**
  *
  * @author LeChampDK
  */
-public class MovieDBDAO
+public class MovieDBDAO implements IMovieDao
 {
 
     private DatabaseConnector dbCon;
@@ -48,7 +51,7 @@ public class MovieDBDAO
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
                 movie.setName(rs.getString("name"));
-                movie.setRating(rs.getInt("rating"));
+                movie.setRating(rs.getDouble("rating"));
                 movie.setFilelink(rs.getString("filelink"));
                 movie.setLastview(rs.getInt("lastview"));
 
@@ -75,7 +78,7 @@ public class MovieDBDAO
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // Sets the Strings
             ps.setString(1, movie.getName());
-            ps.setInt(2, movie.getRating());
+            ps.setDouble(2, movie.getRating());
             ps.setString(3, movie.getFilelink());
             ps.setInt(4, movie.getLastview());
 

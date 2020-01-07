@@ -5,10 +5,14 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import be.Movie;
+import dal.DalException;
+import gui.model.MovieModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,7 +26,9 @@ import javafx.scene.control.TextField;
  */
 public class MainController implements Initializable
 {
-    
+
+    private MovieModel movieModel;
+
     private Label label;
     @FXML
     private ListView<?> categoryView;
@@ -33,7 +39,7 @@ public class MainController implements Initializable
     @FXML
     private Button categoryDeleteButton;
     @FXML
-    private ListView<?> movieView;
+    private ListView<Movie> movieView;
     @FXML
     private Button movieNewButton;
     @FXML
@@ -44,12 +50,27 @@ public class MainController implements Initializable
     private Button moviePlayButton;
     @FXML
     private TextField searchField;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-    }    
-    
+        try
+        {
+           // movieModel.getInstance();
+        } catch (Exception ex)
+        {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        movieView.setItems(movieModel.getAllMovies());
+
+//        try
+//        {
+//            // Loads all songs
+//            movieModel.loadMovies();
+//        } catch (DalException ex)
+//        {
+//            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }
+
 }

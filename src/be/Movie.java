@@ -9,15 +9,14 @@ package be;
  *
  * @author tramm
  */
-public class Movie {
-    
-    
+public class Movie
+{
+
     public int id;
     public String name;
-    public int rating;
+    public double rating;
     private String filelink;
-    private int lastview; 
-
+    private int lastview;
 
     public int getId()
     {
@@ -39,12 +38,12 @@ public class Movie {
         this.name = name;
     }
 
-    public int getRating()
+    public double getRating()
     {
         return rating;
     }
 
-    public void setRating(int rating)
+    public void setRating(double rating)
     {
         this.rating = rating;
     }
@@ -68,7 +67,12 @@ public class Movie {
     {
         this.lastview = lastview;
     }
-    
 
     
+    @Override
+    public String toString()
+    {
+        return rating + " - " + name;
+    }
+
 }
