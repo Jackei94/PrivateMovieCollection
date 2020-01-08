@@ -60,4 +60,8 @@ public class MovieManager
         movieDao.editMovie(movie);
     }
     
+    public void deleteMovie(Movie movie) throws DalException
+    {
+        movieDao.deleteMovie(movie);
+    }
 }

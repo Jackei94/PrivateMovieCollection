@@ -5,8 +5,7 @@
  */
 package be;
 
-
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -19,7 +18,7 @@ public class Movie
     public String name;
     public double rating;
     private String filelink;
-    private Date lastview;
+    private LocalDate lastview;
 
     public int getId()
     {
@@ -61,22 +60,20 @@ public class Movie
         this.filelink = filelink;
     }
 
-    public Date getLastview()
+    public LocalDate getLastview()
     {
         return lastview;
     }
 
-    public void setLastview(Date lastview)
+    public void setLastview(LocalDate lastview)
     {
         this.lastview = lastview;
     }
 
-
-    
     @Override
     public String toString()
     {
-        return rating + " - " + name;
+        return rating + " - " + name + " (" + lastview + ")";
     }
 
 }

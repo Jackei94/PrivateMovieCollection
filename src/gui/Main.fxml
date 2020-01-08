@@ -59,7 +59,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="movieDeleteButton" mnemonicParsing="false" text="Delete">
+                        <Button mnemonicParsing="false" onAction="#movieDeleteButton" text="Delete">
                            <HBox.margin>
                               <Insets right="45.0" />
                            </HBox.margin>

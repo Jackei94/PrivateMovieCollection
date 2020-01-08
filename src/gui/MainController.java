@@ -55,8 +55,6 @@ public class MainController implements Initializable
     @FXML
     private Button movieEditButton;
     @FXML
-    private Button movieDeleteButton;
-    @FXML
     private Button moviePlayButton;
     @FXML
     private TextField searchField;
@@ -147,6 +145,23 @@ public class MainController implements Initializable
             searchedMovies.setAll(movieModel.search(movieModel.getAllMovies(), newValue));
             movieView.setItems(searchedMovies);
         });
+    }
+
+    @FXML
+    private void movieDeleteButton(ActionEvent event) throws DalException 
+    {
+        Movie selectedMovie = movieView.getSelectionModel().getSelectedItem();
+        // Popup stage to confirm delete song.
+        Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION, "Confirm Delete", ButtonType.YES, ButtonType.NO);
+        deleteAlert.setContentText("Are you sure you want to delete: " + selectedMovie.getName() + "?");
+        deleteAlert.showAndWait();
+        if (deleteAlert.getResult() == ButtonType.YES)
+        {
+            movieModel.deleteMovie(selectedMovie);
+        } else
+        {
+            deleteAlert.close();
+        }
     }
 
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import dal.IMovieDao;
+import java.time.LocalDate;
 
 /**
  *
@@ -37,7 +38,7 @@ public class MovieDBDAO implements IMovieDao
     {
         ArrayList<Movie> allMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Movie;";
@@ -47,13 +48,14 @@ public class MovieDBDAO implements IMovieDao
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next())
             {
+
                 // Add all to a list
                 Movie movie = new Movie();
-               // movie.setId(rs.getInt("id"));
+                movie.setId(rs.getInt("id"));
                 movie.setName(rs.getString("name"));
                 movie.setRating(rs.getDouble("rating"));
                 movie.setFilelink(rs.getString("filelink"));
-                movie.setLastview(rs.getInt("lastview"));
+                movie.setLastview(rs.getDate("lastview").toLocalDate());
 
                 allMovies.add(movie);
             }
@@ -67,11 +69,11 @@ public class MovieDBDAO implements IMovieDao
             throw new DalException();
         }
     }
-    
+
     public void createMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code
             String sql = "INSERT INTO Movie (name, rating, filelink, lastview) VALUES (?,?,?,?);";
@@ -80,7 +82,7 @@ public class MovieDBDAO implements IMovieDao
             ps.setString(1, movie.getName());
             ps.setDouble(2, movie.getRating());
             ps.setString(3, movie.getFilelink());
-            ps.setInt(4, movie.getLastview());
+            ps.setString(4, movie.getLastview().toString());
 
             // Attempts to update the database
             int affectedRows = ps.executeUpdate();
@@ -99,7 +101,7 @@ public class MovieDBDAO implements IMovieDao
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void editMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
@@ -124,6 +126,25 @@ public class MovieDBDAO implements IMovieDao
         } catch (SQLException ex)
         {
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteMovie(Movie selectedMovie) throws DalException
+    {
+        // Attempts to connect to the database.
+        try ( Connection con = dbCon.getConnection())
+        {
+            // SQL code. 
+            String sql = "DELETE FROM Movie WHERE id=?;";
+            // Prepared statement. 
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, selectedMovie.getId());
+            // Attempts to execute the statement.
+            ps.execute();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 }

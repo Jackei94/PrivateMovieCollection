@@ -20,4 +20,6 @@ public interface IMovieDao
     void createMovie(Movie movie) throws DalException;
 
     void editMovie(Movie movie) throws DalException;
+
+    void deleteMovie(Movie selectedMovie) throws DalException;
 }
