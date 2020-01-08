@@ -113,24 +113,24 @@ public class MovieViewController implements Initializable
             movieModel.editMovie(movie);
             movieModel.getSelectedMovie().clear();
         }
-         else
-        {
-            // New.
-            Movie movie = new Movie();
-//            Category category = new Category();
-            movie.setId(-1);
-            movie.setName(movieName.getText());
-            movie.setRating(Double.parseDouble(movieRating.getText()));
-//            category.setName(.getText());
-            movie.setFilelink(movieFile.getText());
-            movie.setFilePath(newFile.getText());
-
-            movieModel.createSongs(movie);
-        }
-        // Close the stage.
-        movieModel.loadSongs();
-        Stage stage = (Stage) newSave.getScene().getWindow();
-        stage.close();
+//         else
+//        {
+//            // New.
+//            Movie movie = new Movie();
+////            Category category = new Category();
+//            movie.setId(-1);
+//            movie.setName(movieName.getText());
+//            movie.setRating(Double.parseDouble(movieRating.getText()));
+////            category.setName(.getText());
+//            movie.setFilelink(movieFile.getText());
+//            movie.setFilePath(newFile.getText());
+//
+//            movieModel.createMovie(movie);
+//        }
+//        // Close the stage.
+//        movieModel.loadMovie();
+//        Stage stage = (Stage) newSave.getScene().getWindow();
+//        stage.close();
     }
 
     public void setModel(MovieModel model)

@@ -5,8 +5,10 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import be.Category;
 import be.Movie;
 import dal.DalException;
+import gui.model.CategoryModel;
 import gui.model.MovieModel;
 import java.io.IOException;
 
@@ -39,29 +41,18 @@ public class MainController implements Initializable
 {
 
     private MovieModel movieModel;
+    private CategoryModel categoryModel;
     private ObservableList<Movie> searchedMovies;
 
     private Label label;
     @FXML
-    private ListView<Movie> categoryView;
-    @FXML
-    private Button categoryNewButton;
-    @FXML
-    private Button categoryEditButton;
-    @FXML
-    private Button categoryDeleteButton;
+    private ListView<Category> categoryView;
     @FXML
     private ListView<Movie> movieView;
-    @FXML
-    private Button movieEditButton;
-    @FXML
-    private Button moviePlayButton;
     @FXML
     private TextField searchField;
     @FXML
     private Button exitApp;
-    @FXML
-    private Button movieNew;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -69,7 +60,10 @@ public class MainController implements Initializable
         try
         {
             movieModel = new MovieModel();
+            categoryModel = new CategoryModel();
             movieView.setItems(movieModel.getAllMovies());
+            categoryView.setItems(categoryModel.getAllCategories());
+//            categoryView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal)->showItemInputDialog(mainStage));
         } catch (Exception ex)
         {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,6 +156,50 @@ public class MainController implements Initializable
         {
             deleteAlert.close();
         }
+    }
+
+    @FXML
+    private void categoryNewButton(ActionEvent event) throws IOException
+    {
+        this.categoryModel = categoryModel;
+        categoryModel.setNewOrEdit("New Category");
+
+        Parent loader = FXMLLoader.load(getClass().getResource("CategoryView.fxml"));
+
+        Scene scene = new Scene(loader);
+
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void categoryEditButton(ActionEvent event) throws IOException
+    {
+        this.categoryModel = categoryModel;
+        categoryModel.setNewOrEdit("Edit Category");
+        Category category = categoryView.getSelectionModel().getSelectedItem();
+        categoryModel.addSelectedCategory(category);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CategoryView.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        CategoryViewController controller = fxmlLoader.getController();
+        controller.setModel(categoryModel);
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+
+    @FXML
+    private void categoryDeleteButton(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void updateGUI(ActionEvent event) throws DalException
+    {
+        categoryModel.loadCategories();
     }
 
 }

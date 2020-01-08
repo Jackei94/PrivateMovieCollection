@@ -54,7 +54,6 @@ public class MovieModel
     public void loadMovies() throws DalException
     {
         allMovies.clear();
-
         allMovies.addAll(movieManager.getAllMovies());
     }
 
@@ -112,10 +111,11 @@ public class MovieModel
     {
         selectedMovie.add(movie);
     }
-    
-    public void deleteMovie(Movie movie) throws DalException
+
+    public void deleteMovie(Movie selectedMovie) throws DalException
     {
-        movieManager.deleteMovie(movie);
+        movieManager.deleteMovie(selectedMovie);
         allMovies.remove(selectedMovie);
     }
+    
 }

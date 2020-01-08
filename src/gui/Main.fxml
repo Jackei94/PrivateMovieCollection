@@ -19,21 +19,22 @@
                   <ListView fx:id="categoryView" prefHeight="400.0" prefWidth="345.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="categoryNewButton" mnemonicParsing="false" text="New">
+                        <Button mnemonicParsing="false" onAction="#categoryNewButton" text="New">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="categoryEditButton" mnemonicParsing="false" text="Edit">
+                        <Button mnemonicParsing="false" onAction="#categoryEditButton" text="Edit">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="categoryDeleteButton" mnemonicParsing="false" text="Delete">
+                        <Button mnemonicParsing="false" onAction="#categoryDeleteButton" text="Delete">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
+                        <Button mnemonicParsing="false" onAction="#updateGUI" text="Button" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -49,12 +50,12 @@
                   <ListView fx:id="movieView" prefHeight="400.0" prefWidth="345.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="movieNew" mnemonicParsing="false" onAction="#movieNewButton" text="New">
+                        <Button mnemonicParsing="false" onAction="#movieNewButton" text="New">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="movieEditButton" mnemonicParsing="false" onAction="#movieEditButton" text="Edit">
+                        <Button mnemonicParsing="false" onAction="#movieEditButton" text="Edit">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -64,7 +65,7 @@
                               <Insets right="45.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="moviePlayButton" mnemonicParsing="false" text="Play movie in mediaplayer" />
+                        <Button mnemonicParsing="false" text="Play movie in mediaplayer" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
