@@ -5,6 +5,9 @@
  */
 package be;
 
+
+import java.util.Date;
+
 /**
  *
  * @author tramm
@@ -16,7 +19,7 @@ public class Movie
     public String name;
     public double rating;
     private String filelink;
-    private int lastview;
+    private Date lastview;
 
     public int getId()
     {
@@ -58,15 +61,16 @@ public class Movie
         this.filelink = filelink;
     }
 
-    public int getLastview()
+    public Date getLastview()
     {
         return lastview;
     }
 
-    public void setLastview(int lastview)
+    public void setLastview(Date lastview)
     {
         this.lastview = lastview;
     }
+
 
     
     @Override

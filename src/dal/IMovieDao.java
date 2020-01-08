@@ -14,5 +14,10 @@ import java.util.List;
  */
 public interface IMovieDao
 {
+
     List<Movie> getAllMovies() throws DalException;
+
+    void createMovie(Movie movie) throws DalException;
+
+    void editMovie(Movie movie) throws DalException;
 }

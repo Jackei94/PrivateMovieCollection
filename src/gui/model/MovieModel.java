@@ -9,6 +9,8 @@ import be.Movie;
 import bll.MovieManager;
 import dal.DalException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -25,14 +27,14 @@ public class MovieModel
     private ObservableList<Movie> allMovies;
     private MovieManager movieManager;
     private StringProperty newOrEdit = new SimpleStringProperty();
+    private ObservableList<Movie> selectedMovie;
 
     public MovieModel() throws Exception
     {
-//        this.movieManager = movieManager;
-//        allMovies = FXCollections.observableArrayList();
-        movieManager = new MovieManager();
+        this.movieManager = new MovieManager();
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());
+        selectedMovie = FXCollections.observableArrayList();
     }
 
     public static MovieModel getInstance() throws IOException, Exception
@@ -52,10 +54,10 @@ public class MovieModel
     public void loadMovies() throws DalException
     {
         allMovies.clear();
-        
+
         allMovies.addAll(movieManager.getAllMovies());
     }
-    
+
     /**
      * Returns the newOrEdit stringproperty.
      *
@@ -86,4 +88,28 @@ public class MovieModel
         return newOrEditProperty().get();
     }
 
+    public ArrayList<Movie> search(List<Movie> movie, String searchQuery)
+    {
+        return movieManager.search(movie, searchQuery);
+    }
+
+    public void createMovie(Movie movie) throws DalException
+    {
+        movieManager.createMovie(movie);
+    }
+
+    public ObservableList<Movie> getSelectedMovie()
+    {
+        return selectedMovie;
+    }
+
+    public void editMovie(Movie movie) throws DalException
+    {
+        movieManager.editMovie(movie);
+    }
+
+    public void addSelectedMovie(Movie movie)
+    {
+        selectedMovie.add(movie);
+    }
 }

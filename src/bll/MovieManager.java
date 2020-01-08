@@ -9,6 +9,7 @@ import be.Movie;
 import dal.DalException;
 import dal.IMovieDao;
 import dal.database.MovieDBDAO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,35 +18,46 @@ import java.util.List;
  */
 public class MovieManager
 {
-
+    
     private IMovieDao movieDao;
-
+    
     public MovieManager() throws Exception
     {
         movieDao = (IMovieDao) new MovieDBDAO();
     }
-
+    
     public List<Movie> getAllMovies() throws DalException
     {
         return movieDao.getAllMovies();
     }
+    
+    public ArrayList<Movie> search(List<Movie> movie, String searchQuery)
+    {
+        ArrayList<Movie> result = new ArrayList<>();
+        
+        for (Movie movies : movie)
+        {
+            String name = movies.getName().trim().toLowerCase();
+            // double rating = movies.getRating();
 
-//    public ArrayList<Movie> search(List<Movie> movie, String searchQuery)
-//    {
-//        ArrayList<Movie> result = new ArrayList<>();
-//
-//        for (Movie movies : movie)
-//        {
-//            String name = movies.getName().trim().toLowerCase();
-//            double rating = movies.getRating();
-//
-//            if (name.contains(searchQuery.toLowerCase().trim())
-//                    || rating.contains(searchQuery)
-//                    && !result.contains(movie))
-//            {
-//                result.add(movies);
-//            }
-//        }
-//        return result;
-//    }
+            if (name.contains(searchQuery.toLowerCase().trim())
+                    //  || rating.contains(searchQuery)
+                    && !result.contains(movie))
+            {
+                result.add(movies);
+            }
+        }
+        return result;
+    }
+    
+    public void createMovie(Movie movie) throws DalException
+    {
+        movieDao.createMovie(movie);
+    }
+    
+    public void editMovie(Movie movie) throws DalException
+    {
+        movieDao.editMovie(movie);
+    }
+    
 }

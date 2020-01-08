@@ -74,7 +74,7 @@
             </VBox>
          </children>
       </HBox>
-      <TextField fx:id="searchField" layoutX="601.0" layoutY="37.0" promptText="Search..." />
+      <TextField fx:id="searchField" layoutX="601.0" layoutY="37.0" onKeyPressed="#searchMovie" promptText="Search..." />
       <Label layoutX="50.0" layoutY="30.0" text="Team Awesome Sauce Movie Collection">
          <font>
             <Font name="Impact" size="30.0" />

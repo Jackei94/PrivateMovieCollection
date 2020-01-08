@@ -99,4 +99,31 @@ public class MovieDBDAO implements IMovieDao
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void editMovie(Movie movie) throws DalException
+    {
+        // Attempts to connect to the database.
+        try ( Connection con = dbCon.getConnection())
+        {
+            // SQL code. 
+            String sql = "UPDATE Movie SET name=? rating=? filelink=? WHERE id=?;";
+            // Prepared statement
+            PreparedStatement ps = con.prepareStatement(sql);
+            // Sets the strings.
+            ps.setString(1, movie.getName());
+            ps.setDouble(2, movie.getRating());
+            ps.setString(3, movie.getFilelink());
+            ps.setInt(4, movie.getId());
+            // Attempts to execute SQL code.
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new SQLException("Can't edit movie");
+            }
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
