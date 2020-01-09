@@ -105,6 +105,9 @@ public class MovieModel
     public void editMovie(Movie movie) throws DalException
     {
         movieManager.editMovie(movie);
+        allMovies.add(movie);
+        allMovies.clear();
+        allMovies.addAll(movieManager.getAllMovies());
     }
 
     public void addSelectedMovie(Movie movie)

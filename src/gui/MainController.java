@@ -59,8 +59,8 @@ public class MainController implements Initializable
     {
         try
         {
-            movieModel = new MovieModel();
-            categoryModel = new CategoryModel();
+            movieModel = MovieModel.getInstance();
+            categoryModel = CategoryModel.getInstance();
             movieView.setItems(movieModel.getAllMovies());
             categoryView.setItems(categoryModel.getAllCategories());
 //            categoryView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal)->showItemInputDialog(mainStage));
