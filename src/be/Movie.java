@@ -6,6 +6,8 @@
 package be;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -19,6 +21,12 @@ public class Movie
     public double rating;
     private String filelink;
     private LocalDate lastview;
+    private LocalDate unwatched;
+
+    public Movie()
+    {
+        unwatched = LocalDate.of(1990, Month.JANUARY, 01);
+    }
 
     public int getId()
     {
@@ -70,10 +78,29 @@ public class Movie
         this.lastview = lastview;
     }
 
+    public int checkIfWatched()
+    {
+        if (lastview.compareTo(unwatched) == 0)
+        {
+            return 1;
+        } else
+        {
+            return 0;
+        }
+
+    }
+
     @Override
     public String toString()
     {
-        return rating + " - " + name + " (" + lastview + ")";
+        if(checkIfWatched() == 1)
+        {
+            return rating + "☆ - " + name + " (Unwatched)";
+        }
+        else 
+        {
+            return rating + "☆ - " + name + " (" + lastview + ")";
+        }
     }
 
 }

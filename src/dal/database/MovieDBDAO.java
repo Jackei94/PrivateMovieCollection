@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import dal.IMovieDao;
 import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -28,10 +29,12 @@ public class MovieDBDAO implements IMovieDao
 {
 
     private DatabaseConnector dbCon;
+    private LocalDate unwatched;
 
     public MovieDBDAO() throws Exception
     {
         dbCon = new DatabaseConnector();
+        unwatched = LocalDate.of(1990, Month.JANUARY, 01);
     }
 
     public List<Movie> getAllMovies() throws DalException
@@ -82,8 +85,8 @@ public class MovieDBDAO implements IMovieDao
             ps.setString(1, movie.getName());
             ps.setDouble(2, movie.getRating());
             ps.setString(3, movie.getFilelink());
-            ps.setString(4, movie.getLastview().toString());
-
+            ps.setString(4, unwatched.toString());
+            
             // Attempts to update the database
             int affectedRows = ps.executeUpdate();
             if (affectedRows < 1)

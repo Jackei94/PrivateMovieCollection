@@ -12,6 +12,7 @@ import gui.model.MovieModel;
 import gui.model.CategoryModel;
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;

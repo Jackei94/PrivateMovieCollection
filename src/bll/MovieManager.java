@@ -9,8 +9,12 @@ import be.Movie;
 import dal.DalException;
 import dal.IMovieDao;
 import dal.database.MovieDBDAO;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.media.Media;
 
 /**
  *
@@ -64,4 +68,11 @@ public class MovieManager
     {
         movieDao.deleteMovie(movie);
     }
+    public void playMovie(Movie watchMovie) throws IOException
+    {
+        watchMovie = watchMovie;
+        String movieFile = watchMovie.getFilelink();
+        Desktop.getDesktop().open(new File(movieFile));
+    }
+    
 }

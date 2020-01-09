@@ -33,6 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
 /**
@@ -196,7 +197,7 @@ public class MainController implements Initializable
     @FXML
     private void categoryDeleteButton(ActionEvent event) throws DalException
     {
-        
+
         Category selectedCategory = categoryView.getSelectionModel().getSelectedItem();
         categoryModel.deleteCategory(selectedCategory);
     }
@@ -206,11 +207,12 @@ public class MainController implements Initializable
     {
         categoryModel.loadCategories();
     }
-    
+
     @FXML
     private void playMovieButton(ActionEvent event) throws IOException
     {
-        Desktop.getDesktop().open(new File("NetBeansProjects/PrivateMovieCollection/Movies/Mr.robot.mp4"));
+        Movie watchMovie = movieView.getSelectionModel().getSelectedItem();
+        movieModel.playMovie(watchMovie);
     }
 
 }

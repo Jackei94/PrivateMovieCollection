@@ -121,4 +121,9 @@ public class MovieModel
         allMovies.remove(selectedMovie);
     }
     
+    public void playMovie(Movie watchMovie) throws IOException
+    {
+        movieManager.playMovie(watchMovie);
+    }
+    
 }
