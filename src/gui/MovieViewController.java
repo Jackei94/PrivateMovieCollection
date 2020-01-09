@@ -99,6 +99,7 @@ public class MovieViewController implements Initializable
     @FXML
     private void movieCancelButton(ActionEvent event)
     {
+        movieModel.getSelectedMovie().clear();
         Stage stage = (Stage) movieCancel.getScene().getWindow();
         stage.close();
     }

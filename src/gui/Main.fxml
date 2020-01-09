@@ -65,7 +65,7 @@
                               <Insets right="45.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Play movie in mediaplayer" />
+                        <Button mnemonicParsing="false" onAction="#playMovieButton" text="Play movie in mediaplayer" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

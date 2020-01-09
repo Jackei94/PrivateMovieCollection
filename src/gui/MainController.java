@@ -10,6 +10,8 @@ import be.Movie;
 import dal.DalException;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 
 import java.net.URL;
@@ -200,6 +202,12 @@ public class MainController implements Initializable
     private void updateGUI(ActionEvent event) throws DalException
     {
         categoryModel.loadCategories();
+    }
+    
+    @FXML
+    private void playMovieButton(ActionEvent event) throws IOException
+    {
+        Desktop.getDesktop().open(new File("NetBeansProjects/PrivateMovieCollection/Movies/Mr.robot.mp4"));
     }
 
 }
