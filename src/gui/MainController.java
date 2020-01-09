@@ -194,8 +194,11 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void categoryDeleteButton(ActionEvent event)
+    private void categoryDeleteButton(ActionEvent event) throws DalException
     {
+        
+        Category selectedCategory = categoryView.getSelectionModel().getSelectedItem();
+        categoryModel.deleteCategory(selectedCategory);
     }
 
     @FXML
