@@ -9,6 +9,7 @@ import be.Category;
 import be.Movie;
 import dal.DalException;
 import gui.model.MovieModel;
+import gui.model.CategoryModel;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,17 +35,12 @@ public class MovieViewController implements Initializable
 {
 
     private MovieModel movieModel;
+    private CategoryModel categoryModel;
 
-    @FXML
-    private ChoiceBox<?> newCategory;
     @FXML
     private TextField movieName;
     @FXML
     private TextField movieRating;
-    @FXML
-    private ChoiceBox<?> newCategoryTwo;
-    @FXML
-    private ChoiceBox<?> newCategoryThree;
     @FXML
     private TextField movieFile;
     @FXML
@@ -53,6 +49,12 @@ public class MovieViewController implements Initializable
     private Button movieSave;
     @FXML
     private Label newOrEditMovie;
+    @FXML
+    private ChoiceBox<Category> movieCategoryOne;
+    @FXML
+    private ChoiceBox<Category> movieCategoryTwo;
+    @FXML
+    private ChoiceBox<Category> movieCategoryThree;
 
     /**
      * Initializes the controller class.
@@ -63,6 +65,7 @@ public class MovieViewController implements Initializable
         try
         {
             movieModel = MovieModel.getInstance();
+            categoryModel = CategoryModel.getInstance();
         } catch (Exception ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,14 +74,17 @@ public class MovieViewController implements Initializable
         {
             // Sets the data in fields if a song is selected.
             movieName.setText(movieModel.getSelectedMovie().get(0).getName());
-//            newArtist.setText(songModel.getSelectedSong().get(0).getSongArtist());
-//            newCategory.setValue(songModel.getSelectedSong().get(0).getCategory());
-//            newFile.setText(songModel.getSelectedSong().get(0).getFilePath());
-//            newTime.setText(Integer.toString(songModel.getSelectedSong().get(0).getTime()));
+            movieRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getRating()));
+//            movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
+            movieFile.setText(movieModel.getSelectedMovie().get(0).getFilelink());
+//            movie.setText(Integer.toString(songModel.getSelectedSong().get(0).getTime()));
         }
-        newOrEditMovie.textProperty().unbind();
         this.movieModel = movieModel;
+        newOrEditMovie.textProperty().unbind();
         newOrEditMovie.textProperty().bind(movieModel.newOrEditProperty());
+        movieCategoryOne.setItems(categoryModel.getAllCategories());
+        movieCategoryTwo.setItems(categoryModel.getAllCategories());
+        movieCategoryThree.setItems(categoryModel.getAllCategories());
     }
 
     @FXML
@@ -107,7 +113,7 @@ public class MovieViewController implements Initializable
             Category category = new Category();
             movie.setName(movieName.getText());
             movie.setRating(Double.parseDouble(movieRating.getText()));
-            category.setName((String) newCategory.getValue());
+            category.setName((String) movieCategoryOne.getItems().toString());
             movie.setFilelink(movieFile.getText().trim());
             movie.setId(movieModel.getSelectedMovie().get(0).getId());
             movieModel.editMovie(movie);

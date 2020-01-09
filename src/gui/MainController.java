@@ -142,7 +142,7 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void movieDeleteButton(ActionEvent event) throws DalException 
+    private void movieDeleteButton(ActionEvent event) throws DalException
     {
         Movie selectedMovie = movieView.getSelectionModel().getSelectedItem();
         // Popup stage to confirm delete song.
