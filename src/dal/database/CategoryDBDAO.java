@@ -106,6 +106,7 @@ public class CategoryDBDAO implements ICategoryDao
             PreparedStatement ps = con.prepareStatement(sql);
             // Sets the strings.
             ps.setString(1, category.getName());
+            ps.setInt(2, category.getId());
             // Attempts to execute SQL code.
             int affected = ps.executeUpdate();
             if (affected < 1)

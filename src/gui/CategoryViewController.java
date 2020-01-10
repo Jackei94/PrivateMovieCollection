@@ -6,6 +6,7 @@
 package gui;
 
 import be.Category;
+import bll.BLLException;
 import gui.MainController;
 import dal.DalException;
 import gui.model.CategoryModel;
@@ -72,7 +73,7 @@ public class CategoryViewController implements Initializable
     }
 
     @FXML
-    private void categorySaveButton(ActionEvent event) throws DalException
+    private void categorySaveButton(ActionEvent event) throws DalException, BLLException
     {
         if (!categoryModel.getSelectedCategory().isEmpty())
         {

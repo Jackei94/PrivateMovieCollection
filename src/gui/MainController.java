@@ -10,10 +10,7 @@ import be.Movie;
 import dal.DalException;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,7 +30,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
 /**
@@ -47,7 +43,10 @@ public class MainController implements Initializable
     private CategoryModel categoryModel;
     private ObservableList<Movie> searchedMovies;
 
+    @FXML
     private Label label;
+    @FXML
+    private ListView<Category> categoryMovieView;
     @FXML
     private ListView<Category> categoryView;
     @FXML
@@ -99,8 +98,10 @@ public class MainController implements Initializable
     {
         this.movieModel = movieModel;
         movieModel.setNewOrEdit("Edit Movie");
+
         Movie movie = movieView.getSelectionModel().getSelectedItem();
         movieModel.addSelectedMovie(movie);
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MovieView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         MovieViewController controller = fxmlLoader.getController();
@@ -197,15 +198,18 @@ public class MainController implements Initializable
     @FXML
     private void categoryDeleteButton(ActionEvent event) throws DalException
     {
-
         Category selectedCategory = categoryView.getSelectionModel().getSelectedItem();
-        categoryModel.deleteCategory(selectedCategory);
-    }
-
-    @FXML
-    private void updateGUI(ActionEvent event) throws DalException
-    {
-        categoryModel.loadCategories();
+        // Popup stage to confirm delete song.
+        Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION, "Confirm Delete", ButtonType.YES, ButtonType.NO);
+        deleteAlert.setContentText("Are you sure you want to delete: " + selectedCategory.getName() + "?");
+        deleteAlert.showAndWait();
+        if (deleteAlert.getResult() == ButtonType.YES)
+        {
+            categoryModel.deleteCategory(selectedCategory);
+        } else
+        {
+            deleteAlert.close();
+        }
     }
 
     @FXML

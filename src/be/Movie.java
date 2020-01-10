@@ -95,11 +95,11 @@ public class Movie
     {
         if(checkIfWatched() == 1)
         {
-            return rating + "☆ - " + name + " (Unwatched)";
+            return rating + " ☆ - " + name;
         }
         else 
         {
-            return rating + "☆ - " + name + " (" + lastview + ")";
+            return rating + " ★ - " + name;
         }
     }
 

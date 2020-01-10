@@ -7,6 +7,7 @@ package gui;
 
 import be.Category;
 import be.Movie;
+import bll.BLLException;
 import dal.DalException;
 import gui.model.MovieModel;
 import gui.model.CategoryModel;
@@ -106,7 +107,7 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
-    private void movieSaveButton(ActionEvent event) throws DalException
+    private void movieSaveButton(ActionEvent event) throws DalException, BLLException
     {
         if (!movieModel.getSelectedMovie().isEmpty())
         {
@@ -129,7 +130,7 @@ public class MovieViewController implements Initializable
             movie.setId(-1);
             movie.setName(movieName.getText());
             movie.setRating(Double.parseDouble(movieRating.getText()));
-//            category.setName(.getText());
+           
             movie.setFilelink(movieFile.getText());
 
             movieModel.createMovie(movie);
@@ -140,6 +141,8 @@ public class MovieViewController implements Initializable
         stage.close();
     }
 
+   
+    
     public void setModel(MovieModel model)
     {
         this.movieModel = model;

@@ -6,8 +6,10 @@
 package dal.database;
 
 import dal.database.DatabaseConnector;
+import be.CatMovie;
 import be.Movie;
 import dal.DalException;
+import dal.ICatMovieDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,26 +27,24 @@ import java.time.Month;
  *
  * @author LeChampDK
  */
-public class MovieDBDAO implements IMovieDao
+public class CatMovieDBDAO implements ICatMovieDao
 {
 
     private DatabaseConnector dbCon;
-    private LocalDate unwatched;
-
-    public MovieDBDAO() throws Exception
+  
+    public CatMovieDBDAO() throws Exception
     {
         dbCon = new DatabaseConnector();
-        unwatched = LocalDate.of(1990, Month.JANUARY, 01);
     }
 
-    public List<Movie> getAllMovies() throws DalException
+    public List<CatMovie> getAllCatMovies() throws DalException
     {
-        ArrayList<Movie> allMovies = new ArrayList<>();
+        ArrayList<CatMovie> allCatMovies = new ArrayList<>();
         // Attempts to connect to the database.
         try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
-            String sql = "SELECT * FROM Movie;";
+            String sql = "SELECT * FROM CatMovie;";
             // Create statement.
             Statement statement = con.createStatement();
             // Attempts to execute the statement.
@@ -53,100 +53,96 @@ public class MovieDBDAO implements IMovieDao
             {
 
                 // Add all to a list
-                Movie movie = new Movie();
-                movie.setId(rs.getInt("id"));
-                movie.setName(rs.getString("name"));
-                movie.setRating(rs.getDouble("rating"));
-                movie.setFilelink(rs.getString("filelink"));
-                movie.setLastview(rs.getDate("lastview").toLocalDate());
+                CatMovie catMovie = new CatMovie();
+                catMovie.setCategoryId(rs.getInt("categoryId"));
+                catMovie.setMovieId(rs.getInt("movieId"));
 
-                allMovies.add(movie);
+                allCatMovies.add(catMovie);
             }
             //Return
-            return allMovies;
+            return allCatMovies;
 
         } catch (SQLException ex)
         {
-            Logger.getLogger(MovieDBDAO.class
+            Logger.getLogger(CatMovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
             throw new DalException();
         }
     }
 
-    public void createMovie(Movie movie) throws DalException
+    public void createCatMovies(CatMovie catMovie) throws DalException
     {
         // Attempts to connect to the database.
         try ( Connection con = dbCon.getConnection())
         {
             // SQL code
-            String sql = "INSERT INTO Movie (name, rating, filelink, lastview) VALUES (?,?,?,?);";
+            String sql = "INSERT INTO CatMovie (categoryId, movieId) VALUES (?,?);";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // Sets the Strings
-            ps.setString(1, movie.getName());
-            ps.setDouble(2, movie.getRating());
-            ps.setString(3, movie.getFilelink());
-            ps.setString(4, unwatched.toString());
+            ps.setInt(1, catMovie.getCategoryId());
+            ps.setDouble(2, catMovie.getMovieId());
+
             
             // Attempts to update the database
             int affectedRows = ps.executeUpdate();
             if (affectedRows < 1)
             {
-                throw new SQLException("Can't save movie");
+                throw new SQLException("Can't save category to movie");
             }
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next())
             {
-                movie.setId(rs.getInt(1));
+                catMovie.setId(rs.getInt(1));
             }
         } catch (SQLException ex)
         {
-            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CatMovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void editMovie(Movie movie) throws DalException
+    public void editCatMovies(CatMovie catMovie) throws DalException
     {
         // Attempts to connect to the database.
         try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
-            String sql = "UPDATE Movie SET name=?, rating=?, filelink=? WHERE id=?;";
+            String sql = "UPDATE CatMovie SET categoryId=? movieId=? WHERE id=?;";
             // Prepared statement
             PreparedStatement ps = con.prepareStatement(sql);
             // Sets the strings.
-            ps.setString(1, movie.getName());
-            ps.setDouble(2, movie.getRating());
-            ps.setString(3, movie.getFilelink());
-            ps.setInt(4, movie.getId());
+            ps.setInt(1, catMovie.getCategoryId());
+            ps.setInt(2, catMovie.getMovieId());
+            ps.setInt(3, catMovie.getId());
+            
             // Attempts to execute SQL code.
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
-                throw new SQLException("Can't edit movie");
+                throw new SQLException("Can't edit category to movie");
             }
 
         } catch (SQLException ex)
         {
-            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CatMovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void deleteMovie(Movie selectedMovie) throws DalException
+    public void deleteCatMovies(CatMovie selectedCatMovie) throws DalException
     {
         // Attempts to connect to the database.
         try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
-            String sql = "DELETE FROM Movie WHERE id=?;";
+            String sql = "DELETE FROM CatMovie WHERE id=?;";
             // Prepared statement. 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, selectedMovie.getId());
+            ps.setInt(1, selectedCatMovie.getId());
             // Attempts to execute the statement.
             ps.execute();
         } catch (SQLException ex)
         {
-            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CatMovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }
