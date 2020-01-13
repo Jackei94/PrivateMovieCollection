@@ -23,6 +23,7 @@ public class CategoryModel
 
     private static CategoryModel instance;
     private ObservableList<Category> allCategories;
+    private ObservableList<Category> allCategoriesToChoicebox;
     private ObservableList<Category> selectedCategory;
     private CategoryManager categoryManager;
     private StringProperty newOrEdit = new SimpleStringProperty();
@@ -32,6 +33,8 @@ public class CategoryModel
         this.categoryManager = new CategoryManager();
         allCategories = FXCollections.observableArrayList();
         allCategories.addAll(categoryManager.getAllCategories());
+        allCategoriesToChoicebox = FXCollections.observableArrayList();
+        allCategoriesToChoicebox.addAll(categoryManager.getAllCategoriesToChoicebox());
         selectedCategory = FXCollections.observableArrayList();
     }
 
@@ -53,6 +56,11 @@ public class CategoryModel
     public ObservableList<Category> getAllCategories()
     {
         return allCategories;
+    }
+    
+    public ObservableList<Category> getAllCategoriesToChoicebox()
+    {
+        return allCategoriesToChoicebox;
     }
 
     public void createCategory(Category category) throws DalException

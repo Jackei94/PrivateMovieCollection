@@ -30,6 +30,11 @@ public class CategoryManager
         return categoryDao.getAllCategories();
     }
     
+    public List<Category> getAllCategoriesToChoicebox() throws DalException
+    {
+        return categoryDao.getAllCategoriesToChoicebox();
+    }
+    
     public void createCategory(Category category) throws DalException
     {
         categoryDao.createCategory(category);

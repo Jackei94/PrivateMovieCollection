@@ -40,7 +40,40 @@ public class CategoryDBDAO implements ICategoryDao
         try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
-            String sql = "SELECT * FROM Category;";
+            String sql = "SELECT * FROM Category EXCEPT SELECT '3', 'Select Category' FROM Category;";
+            // Create statement.
+            Statement statement = con.createStatement();
+            // Attempts to execute the statement.
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next())
+            {
+
+                // Add all to a list
+                Category category = new Category();
+                category.setId(rs.getInt("id"));
+                category.setName(rs.getString("name"));
+
+                allCategories.add(category);
+            }
+            //Return
+            return allCategories;
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(CategoryDBDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            throw new DalException();
+        }
+    }
+    
+    public List<Category> getAllCategoriesToChoicebox() throws DalException
+    {
+        ArrayList<Category> allCategories = new ArrayList<>();
+        // Attempts to connect to the database.
+        try ( Connection con = dbCon.getConnection())
+        {
+            // SQL code. 
+            String sql = "SELECT * FROM Category EXCEPT SELECT '1', 'All Movies' FROM Category EXCEPT SELECT '2', 'Unwatched' FROM Category;";
             // Create statement.
             Statement statement = con.createStatement();
             // Attempts to execute the statement.

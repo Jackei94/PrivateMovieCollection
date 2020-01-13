@@ -6,6 +6,8 @@
 package bll;
 
 import be.CatMovie;
+import be.Category;
+import be.Movie;
 import dal.DalException;
 import dal.ICatMovieDao;
 import dal.database.CatMovieDBDAO;
@@ -30,7 +32,7 @@ public class CatMovieManager
         return catMovieDao.getAllCatMovies();
     }
     
-    public void createMovie(CatMovie catMovie) throws DalException
+    public void createCatMovies(CatMovie catMovie) throws DalException
     {
         catMovieDao.createCatMovies(catMovie);
     }
@@ -43,5 +45,10 @@ public class CatMovieManager
     public void deleteMovie(CatMovie catMovie) throws DalException
     {
         catMovieDao.deleteCatMovies(catMovie);
+    }
+    
+    public List<CatMovie> getCatForMovies() throws DalException
+    {
+        return catMovieDao.getCatForMovies();
     }
 }

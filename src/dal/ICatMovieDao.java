@@ -7,6 +7,7 @@ package dal;
 
 import be.CatMovie;
 import be.Category;
+import be.Movie;
 import java.util.List;
 
 /**
@@ -18,9 +19,11 @@ public interface ICatMovieDao
 
     List<CatMovie> getAllCatMovies() throws DalException;
 
-    void createCatMovies(CatMovie catMovie) throws DalException;
+    void createCatMovies(CatMovie catmovie) throws DalException;
 
     void editCatMovies(CatMovie catMovie) throws DalException;
 
     void deleteCatMovies(CatMovie selectedCatMovie) throws DalException;
+    
+    List<CatMovie> getCatForMovies() throws DalException;
 }

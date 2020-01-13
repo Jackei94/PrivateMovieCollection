@@ -16,6 +16,8 @@ public interface ICategoryDao
 {
 
     List<Category> getAllCategories() throws DalException;
+    
+    List<Category> getAllCategoriesToChoicebox() throws DalException;
 
     void createCategory(Category category) throws DalException;
 

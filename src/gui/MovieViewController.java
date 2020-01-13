@@ -5,18 +5,21 @@
  */
 package gui;
 
+import be.CatMovie;
 import be.Category;
 import be.Movie;
 import bll.BLLException;
 import dal.DalException;
+import gui.model.CatMovieModel;
 import gui.model.MovieModel;
 import gui.model.CategoryModel;
 import java.io.File;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +41,10 @@ public class MovieViewController implements Initializable
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    private CatMovieModel catMovieModel;
+    private int Category1;
+    private int Category2;
+    private int Category3;
 
     @FXML
     private TextField movieName;
@@ -64,10 +71,15 @@ public class MovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        Category1 = catMovieModel.getCatForMovies().get(0).getCategoryId();
+        Category2 = catMovieModel.getCatForMovies().get(1).getCategoryId();
+        Category3 = catMovieModel.getCatForMovies().get(2).getCategoryId();
+                
         try
         {
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
+            catMovieModel = CatMovieModel.getInstance();
         } catch (Exception ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,16 +89,21 @@ public class MovieViewController implements Initializable
             // Sets the data in fields if a song is selected.
             movieName.setText(movieModel.getSelectedMovie().get(0).getName());
             movieRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getRating()));
+//            movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
 //            movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
             movieFile.setText(movieModel.getSelectedMovie().get(0).getFilelink());
-//            movie.setText(Integer.toString(songModel.getSelectedSong().get(0).getTime()));
         }
         this.movieModel = movieModel;
         newOrEditMovie.textProperty().unbind();
         newOrEditMovie.textProperty().bind(movieModel.newOrEditProperty());
-        movieCategoryOne.setItems(categoryModel.getAllCategories());
-        movieCategoryTwo.setItems(categoryModel.getAllCategories());
-        movieCategoryThree.setItems(categoryModel.getAllCategories());
+
+        movieCategoryOne.setItems(categoryModel.getAllCategoriesToChoicebox());
+        movieCategoryTwo.setItems(categoryModel.getAllCategoriesToChoicebox());
+        movieCategoryThree.setItems(categoryModel.getAllCategoriesToChoicebox());
+
+        movieCategoryOne.setValue(categoryModel.getAllCategoriesToChoicebox().get(0));
+        movieCategoryTwo.setValue(categoryModel.getAllCategoriesToChoicebox().get(0));
+        movieCategoryThree.setValue(categoryModel.getAllCategoriesToChoicebox().get(0));
     }
 
     @FXML
@@ -121,19 +138,34 @@ public class MovieViewController implements Initializable
             movie.setId(movieModel.getSelectedMovie().get(0).getId());
             movieModel.editMovie(movie);
             movieModel.getSelectedMovie().clear();
-        }
-         else
+        } else
         {
             // New movie.
             Movie movie = new Movie();
             Category category = new Category();
+            CatMovie catMovie = new CatMovie();
             movie.setId(-1);
             movie.setName(movieName.getText());
             movie.setRating(Double.parseDouble(movieRating.getText()));
-           
             movie.setFilelink(movieFile.getText());
-
             movieModel.createMovie(movie);
+
+            catMovie.setMovieId(movie.getId());
+            if (movieCategoryOne.getSelectionModel().getSelectedItem().getId() != 3)
+            {
+                catMovie.setCategoryId(movieCategoryOne.getSelectionModel().getSelectedItem().getId());
+                catMovieModel.createCatMovies(catMovie);
+            }
+            if (movieCategoryTwo.getSelectionModel().getSelectedItem().getId() != 3)
+            {
+                catMovie.setCategoryId(movieCategoryTwo.getSelectionModel().getSelectedItem().getId());
+                catMovieModel.createCatMovies(catMovie);
+            }
+            if (movieCategoryThree.getSelectionModel().getSelectedItem().getId() != 3)
+            {
+                catMovie.setCategoryId(movieCategoryThree.getSelectionModel().getSelectedItem().getId());
+                catMovieModel.createCatMovies(catMovie);
+            }
         }
         // Close the stage.
         movieModel.loadMovies();
@@ -141,8 +173,6 @@ public class MovieViewController implements Initializable
         stage.close();
     }
 
-   
-    
     public void setModel(MovieModel model)
     {
         this.movieModel = model;

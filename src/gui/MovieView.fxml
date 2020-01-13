@@ -22,7 +22,7 @@
       </Label>
       <Label layoutX="50.0" layoutY="65.0" text="Name" />
       <Label layoutX="50.0" layoutY="115.0" text="Rating" />
-      <Label layoutX="50.0" layoutY="165.0" text="Category" />
+      <Label layoutX="50.0" layoutY="165.0" text="Category 1" />
       <Label layoutX="50.0" layoutY="301.0" text="File" />
       <ChoiceBox fx:id="movieCategoryOne" layoutX="139.0" layoutY="161.0" prefWidth="150.0" />
       <Label layoutX="50.0" layoutY="209.0" text="Category 2" />
