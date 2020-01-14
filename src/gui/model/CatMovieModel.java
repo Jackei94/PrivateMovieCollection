@@ -30,8 +30,8 @@ public class CatMovieModel
         this.catMovieManager = new CatMovieManager();
         allCatMovies = FXCollections.observableArrayList();
         allCatMovies.addAll(catMovieManager.getAllMovies());
-        allCatForMovies = FXCollections.observableArrayList();
-        allCatForMovies.addAll(catMovieManager.getCatForMovies());
+//        allCatForMovies = FXCollections.observableArrayList();
+//        allCatForMovies.addAll(catMovieManager.getCatForMovies());
         selectedCatMovie = FXCollections.observableArrayList();
     }
 

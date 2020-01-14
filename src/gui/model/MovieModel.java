@@ -97,6 +97,11 @@ public class MovieModel
         movieManager.createMovie(movie);
     }
 
+    public double getTmdbRating(Movie movie) throws IOException
+    {
+        return movieManager.getTmdbRating(movie);
+    }
+
     public ObservableList<Movie> getSelectedMovie()
     {
         return selectedMovie;
@@ -120,10 +125,10 @@ public class MovieModel
         movieManager.deleteMovie(selectedMovie);
         allMovies.remove(selectedMovie);
     }
-    
+
     public void playMovie(Movie watchMovie) throws IOException
     {
         movieManager.playMovie(watchMovie);
     }
-    
+
 }

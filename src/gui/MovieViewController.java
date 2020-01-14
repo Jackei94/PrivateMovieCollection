@@ -14,6 +14,7 @@ import gui.model.CatMovieModel;
 import gui.model.MovieModel;
 import gui.model.CategoryModel;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -64,6 +65,8 @@ public class MovieViewController implements Initializable
     private ChoiceBox<Category> movieCategoryTwo;
     @FXML
     private ChoiceBox<Category> movieCategoryThree;
+    @FXML
+    private TextField movieYear;
 
     /**
      * Initializes the controller class.
@@ -71,9 +74,9 @@ public class MovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        Category1 = catMovieModel.getCatForMovies().get(0).getCategoryId();
-        Category2 = catMovieModel.getCatForMovies().get(1).getCategoryId();
-        Category3 = catMovieModel.getCatForMovies().get(2).getCategoryId();
+//        Category1 = catMovieModel.getCatForMovies().get(0).getCategoryId();
+//        Category2 = catMovieModel.getCatForMovies().get(1).getCategoryId();
+//        Category3 = catMovieModel.getCatForMovies().get(2).getCategoryId();
                 
         try
         {
@@ -107,12 +110,15 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
-    public void chooseFile(ActionEvent event)
+    public void chooseFile(ActionEvent event) throws IOException
     {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("Movies"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp4 files", "*.mp4", "*.mpeg4"));
         Window stage = null;
         File file = fileChooser.showOpenDialog(stage);
-        movieFile.setText(file.getPath());
+        movieFile.setText("Movies/" + file.getName());
+        movieName.setText(file.getName().replace(".mp4", ""));
     }
 
     @FXML
@@ -124,7 +130,7 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
-    private void movieSaveButton(ActionEvent event) throws DalException, BLLException
+    private void movieSaveButton(ActionEvent event) throws DalException, BLLException, IOException
     {
         if (!movieModel.getSelectedMovie().isEmpty())
         {
@@ -146,8 +152,10 @@ public class MovieViewController implements Initializable
             CatMovie catMovie = new CatMovie();
             movie.setId(-1);
             movie.setName(movieName.getText());
+            movie.setYear(Integer.parseInt(movieYear.getText()));
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
+            movie.setTmdbRating(movieModel.getTmdbRating(movie));
             movieModel.createMovie(movie);
 
             catMovie.setMovieId(movie.getId());
