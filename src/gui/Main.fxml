@@ -81,5 +81,7 @@
          </font>
       </Label>
       <Button fx:id="exitApp" layoutX="721.0" layoutY="550.0" mnemonicParsing="false" onAction="#exitApp" text=":'C" />
+      <Button fx:id="uwMovies" layoutX="483.0" layoutY="538.0" mnemonicParsing="false" onAction="#uwMovies" text="Button" />
+      <ListView fx:id="uwMovieList" layoutX="270.0" layoutY="534.0" prefHeight="83.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

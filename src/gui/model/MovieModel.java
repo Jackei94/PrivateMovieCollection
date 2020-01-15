@@ -9,12 +9,16 @@ import be.Movie;
 import bll.MovieManager;
 import dal.DalException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.DatePicker;
 
 /**
  *
@@ -28,6 +32,8 @@ public class MovieModel
     private MovieManager movieManager;
     private StringProperty newOrEdit = new SimpleStringProperty();
     private ObservableList<Movie> selectedMovie;
+    private ObservableList<Movie> unwMovieList;
+    DatePicker datePicker = new DatePicker(LocalDate.now());
 
     public MovieModel() throws Exception
     {
@@ -35,6 +41,8 @@ public class MovieModel
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());
         selectedMovie = FXCollections.observableArrayList();
+      
+        
     }
 
     public static MovieModel getInstance() throws IOException, Exception
@@ -133,4 +141,20 @@ public class MovieModel
  public List<String> getAllMoviesByName() throws DalException {
         return movieManager.getAllMoviesByName();
 }
+ 
+ public ObservableList<Movie> unwMovieList() {
+        for (int i = 0; i < allMovies.size(); i++) {
+            LocalDateTime dateMinusTwoYears = LocalDateTime.now().minusYears(2);
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            LocalDate lastViewDate = LocalDate.parse(allMovies.get(i).getLastview().toString(), formatter);
+            LocalDateTime localLastViewDate = LocalDateTime.of(lastViewDate, LocalDateTime.now().toLocalTime());
+            boolean afterTwoYears = localLastViewDate.isBefore(dateMinusTwoYears);
+            if(afterTwoYears == true) 
+                unwMovieList.add(allMovies.get(i));
+            System.out.println(unwMovieList);
+        }
+        return unwMovieList;
+       
+    }
+ 
 }

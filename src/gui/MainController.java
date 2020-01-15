@@ -42,11 +42,8 @@ public class MainController implements Initializable
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     private ObservableList<Movie> searchedMovies;
+    private ObservableList<Movie> unwMovieList;
 
-    @FXML
-    private Label label;
-    @FXML
-    private ListView<Category> categoryMovieView;
     @FXML
     private ListView<Category> categoryView;
     @FXML
@@ -55,6 +52,10 @@ public class MainController implements Initializable
     private TextField searchField;
     @FXML
     private Button exitApp;
+    @FXML
+    private Button uwMovies;
+    @FXML
+    private ListView<Movie> uwMovieList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -218,5 +219,10 @@ public class MainController implements Initializable
         Movie watchMovie = movieView.getSelectionModel().getSelectedItem();
         movieModel.playMovie(watchMovie);
     }
-
+    
+    @FXML
+    private void uwMovies(ActionEvent event) throws IOException
+    {
+    uwMovieList.setItems(unwMovieList);
+}
 }
