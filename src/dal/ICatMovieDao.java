@@ -26,4 +26,6 @@ public interface ICatMovieDao
     void deleteCatMovies(CatMovie selectedCatMovie) throws DalException;
     
     List<CatMovie> getCatForMovies() throws DalException;
+    
+    List<Movie> getMoviesFromCats(Category chosenCat) throws DalException;
 }

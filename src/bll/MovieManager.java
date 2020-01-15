@@ -18,12 +18,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import org.json.JSONObject;
 
 /**
  *
@@ -89,6 +86,16 @@ public class MovieManager
         watchMovie = watchMovie;
         String movieFile = watchMovie.getFilelink();
         Desktop.getDesktop().open(new File(movieFile));
+    }
+
+    public List<String> getAllMoviesByName() throws DalException
+    {
+        return movieDao.getAllMoviesByName();
+    }
+
+    public List<Movie> getAllUnwatchedMovies() throws DalException
+    {
+        return movieDao.getAllUnwatchedMovies();
     }
 
 }

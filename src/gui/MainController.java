@@ -8,6 +8,7 @@ package gui;
 import be.Category;
 import be.Movie;
 import dal.DalException;
+import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
 import java.io.IOException;
@@ -31,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -42,10 +44,13 @@ public class MainController implements Initializable
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    private CatMovieModel catMovieModel;
     private ObservableList<Movie> searchedMovies;
-    private ObservableList<String> sortMoviesCombobox = FXCollections.observableArrayList("sort by name","sort by rating");
+    private ObservableList<String> sortMoviesCombobox = FXCollections.observableArrayList("sort by name", "sort by rating");
     private boolean sortingByName;
     private boolean sortingByRating;
+    private ObservableList<Movie> unwMovieList;
+    private Category chosenCat;
 
     @FXML
     private ListView<Category> categoryView;
@@ -55,8 +60,10 @@ public class MainController implements Initializable
     private TextField searchField;
     @FXML
     private Button exitApp;
-   
-    
+    @FXML
+    private Button uwMovies;
+    @FXML
+    private ListView<Movie> uwMovieList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -70,8 +77,10 @@ public class MainController implements Initializable
             sortingByName = false;
             sortingByRating = false;
             sortMoviesCombobox.addAll("Sort by Name", "Sort by rating");
+            catMovieModel = CatMovieModel.getInstance();
             movieView.setItems(movieModel.getAllMovies());
             categoryView.setItems(categoryModel.getAllCategories());
+
 //            categoryView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal)->showItemInputDialog(mainStage));
         } catch (Exception ex)
         {
@@ -226,20 +235,42 @@ public class MainController implements Initializable
         movieModel.playMovie(watchMovie);
     }
 
+    @FXML
+    private void uwMovies(ActionEvent event) throws IOException
+    {
+        uwMovieList.setItems(unwMovieList);
+    }
+
     private void sortButton(javafx.event.ActionEvent event)
     {
-     if (sortMoviesCombobox.getSelectionModel().getSelectedItem()=="Sort by name")
-     {
-         sortingByRating = false;
-         sortingByName = true;
-     }
-     else if (sortMoviesCombobox.getSelectionModel().getSelectedItem()=="sort by rating")
-     {
-         sortingByRating = true;
-         sortingByName = false;
-     }
-         
-     }
+//        if (sortMoviesCombobox.getSelectionModel().getSelectedItem() == "Sort by name")
+//        {
+//            sortingByRating = false;
+//            sortingByName = true;
+//        } else if (sortMoviesCombobox.getSelectionModel().getSelectedItem() == "sort by rating")
+//        {
+//            sortingByRating = true;
+//            sortingByName = false;
+//        }
 
-    
+    }
+
+    @FXML
+    private void onCategoryViewClicked(MouseEvent event) throws DalException
+    {
+        chosenCat = categoryView.getSelectionModel().getSelectedItem();
+        int checkCatId;
+        checkCatId = chosenCat.getId();
+        if (checkCatId == 1)
+        {
+            movieView.setItems(movieModel.getAllMovies());
+        } else if (checkCatId == 2)
+        {
+            movieView.setItems(movieModel.getAllUnwatchedMovies());
+        } else
+        {
+            movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
+        }
+    }
+
 }

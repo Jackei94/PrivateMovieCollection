@@ -22,4 +22,10 @@ public interface IMovieDao
     void editMovie(Movie movie) throws DalException;
 
     void deleteMovie(Movie selectedMovie) throws DalException;
+   
+    List<String> getAllMoviesByName() throws DalException;
+    
+    List<Movie> getAllUnwatchedMovies() throws DalException;
+       
+    
 }
