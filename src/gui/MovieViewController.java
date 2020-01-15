@@ -69,8 +69,6 @@ public class MovieViewController implements Initializable
     @FXML
     private ChoiceBox<Category> movieCategoryThree;
     @FXML
-    private TextField movieYear;
-    @FXML
     private TextField imdbRating;
 
     /**
@@ -157,10 +155,10 @@ public class MovieViewController implements Initializable
 
             movie.setName(movieName.getText());
 
-            movie.setYear(Integer.parseInt(movieYear.getText()));
+
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
-            movie.setTmdbRating(movieModel.getTmdbRating(movie));
+            movie.setImdbRating(Double.parseDouble(imdbRating.getText()));
 
             if (movieModel.getAllMoviesByName().contains(movieName.getText()))
             {

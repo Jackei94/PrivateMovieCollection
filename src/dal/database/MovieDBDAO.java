@@ -59,7 +59,7 @@ public class MovieDBDAO implements IMovieDao
                 movie.setRating(rs.getDouble("rating"));
                 movie.setFilelink(rs.getString("filelink"));
                 movie.setLastview(rs.getDate("lastview").toLocalDate());
-                movie.setTmdbRating(rs.getDouble("tmdbrating"));
+                movie.setImdbRating(rs.getDouble("imdbrating"));
 
                 allMovies.add(movie);
             }
@@ -80,14 +80,14 @@ public class MovieDBDAO implements IMovieDao
         try ( Connection con = dbCon.getConnection())
         {
             // SQL code
-            String sql = "INSERT INTO Movie (name, rating, filelink, lastview, tmdbrating) VALUES (?,?,?,?,?);";
+            String sql = "INSERT INTO Movie (name, rating, filelink, lastview, imdbrating) VALUES (?,?,?,?,?);";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // Sets the Strings
             ps.setString(1, movie.getName());
             ps.setDouble(2, movie.getRating());
             ps.setString(3, movie.getFilelink());
             ps.setString(4, unwatched.toString());
-            ps.setDouble(5, movie.getTmdbRating());
+            ps.setDouble(5, movie.getImdbRating());
             
             // Attempts to update the database
             int affectedRows = ps.executeUpdate();

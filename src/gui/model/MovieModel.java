@@ -105,11 +105,6 @@ public class MovieModel
         movieManager.createMovie(movie);
     }
 
-    public double getTmdbRating(Movie movie) throws IOException
-    {
-        return movieManager.getTmdbRating(movie);
-    }
-
     public ObservableList<Movie> getSelectedMovie()
     {
         return selectedMovie;

@@ -21,8 +21,7 @@ public class Movie
     public double rating;
     private String filelink;
     private LocalDate lastview;
-    private double tmdbRating;
-    private int year;
+    private double imdbRating;
     private LocalDate unwatched;
 
     public Movie()
@@ -80,24 +79,14 @@ public class Movie
         this.lastview = lastview;
     }
     
-    public double getTmdbRating()
+    public double getImdbRating()
     {
-        return tmdbRating;
+        return imdbRating;
     }
 
-    public void setTmdbRating(double tmdbRating)
+    public void setImdbRating(double tmdbRating)
     {
-        this.tmdbRating = tmdbRating;
-    }
-    
-     public int getYear()
-    {
-        return year;
-    }
-
-    public void setYear(int year)
-    {
-        this.year = year;
+        this.imdbRating = tmdbRating;
     }
 
 //    public int checkIfWatched()

@@ -93,9 +93,5 @@ public class MovieManager
          return movieDao.getAllMoviesByName();
      }
 
-    public double getTmdbRating(Movie movie) throws MalformedURLException, IOException
-    {
-        return movie.getTmdbRating();
-    }
 }
 
