@@ -41,6 +41,7 @@ public class MovieModel
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());
         selectedMovie = FXCollections.observableArrayList();
+        unwMovieList = FXCollections.observableArrayList();
       
         
     }
@@ -144,7 +145,7 @@ public class MovieModel
             LocalDate lastViewDate = LocalDate.parse(allMovies.get(i).getLastview().toString(), formatter);
             LocalDateTime localLastViewDate = LocalDateTime.of(lastViewDate, LocalDateTime.now().toLocalTime());
             boolean afterTwoYears = localLastViewDate.isBefore(dateMinusTwoYears);
-            if(afterTwoYears == true) 
+            if(afterTwoYears ==  true && allMovies.get(i).getRating()< 6) 
                 unwMovieList.add(allMovies.get(i));
             System.out.println(unwMovieList);
         }

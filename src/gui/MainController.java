@@ -223,6 +223,6 @@ public class MainController implements Initializable
     @FXML
     private void uwMovies(ActionEvent event) throws IOException
     {
-    uwMovieList.setItems(unwMovieList);
+     uwMovieList.setItems(movieModel.unwMovieList());
 }
 }
