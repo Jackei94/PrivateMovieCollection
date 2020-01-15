@@ -6,9 +6,12 @@
 package gui.model;
 
 import be.CatMovie;
+import be.Category;
+import be.Movie;
 import bll.CatMovieManager;
 import dal.DalException;
 import java.io.IOException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,7 +25,7 @@ public class CatMovieModel
     private static CatMovieModel instance;
     private ObservableList<CatMovie> allCatMovies;
     private ObservableList<CatMovie> selectedCatMovie;
-    private ObservableList<CatMovie> allCatForMovies;
+    private ObservableList<Movie> catMovie;
     private CatMovieManager catMovieManager;
 
     public CatMovieModel() throws DalException, Exception
@@ -30,9 +33,8 @@ public class CatMovieModel
         this.catMovieManager = new CatMovieManager();
         allCatMovies = FXCollections.observableArrayList();
         allCatMovies.addAll(catMovieManager.getAllMovies());
-//        allCatForMovies = FXCollections.observableArrayList();
-//        allCatForMovies.addAll(catMovieManager.getCatForMovies());
         selectedCatMovie = FXCollections.observableArrayList();
+        catMovie = FXCollections.observableArrayList();
     }
 
     public static CatMovieModel getInstance() throws IOException, Exception
@@ -54,7 +56,7 @@ public class CatMovieModel
     {
         return allCatMovies;
     }
-    
+
     public ObservableList<CatMovie> getCatForMovies()
     {
         return allCatMovies;
@@ -84,11 +86,19 @@ public class CatMovieModel
     {
         return selectedCatMovie;
     }
-    
+
     public void addSelectedCategory(CatMovie catMovie)
     {
         selectedCatMovie.add(catMovie);
     }
 
-    
+    public ObservableList<Movie> getMoviesFromCats(Category chosenCat) throws DalException
+    {
+
+        List<Movie> tempMovies = catMovieManager.getMoviesFromCats(chosenCat);
+        catMovie.clear();
+        catMovie.addAll(tempMovies);
+        return catMovie;
+    }
+
 }

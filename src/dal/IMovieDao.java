@@ -24,6 +24,8 @@ public interface IMovieDao
     void deleteMovie(Movie selectedMovie) throws DalException;
    
     List<String> getAllMoviesByName() throws DalException;
+    
+    List<Movie> getAllUnwatchedMovies() throws DalException;
        
     
 }

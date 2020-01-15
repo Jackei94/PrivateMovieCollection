@@ -155,9 +155,9 @@ public class MovieViewController implements Initializable
 
             movie.setName(movieName.getText());
 
-
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
+            movieModel.createMovie(movie);
             movie.setImdbRating(Double.parseDouble(imdbRating.getText()));
 
             if (movieModel.getAllMoviesByName().contains(movieName.getText()))
@@ -171,20 +171,23 @@ public class MovieViewController implements Initializable
 
                 movieModel.createMovie(movie);
             }
-            catMovie.setMovieId(movie.getId());
+
             if (movieCategoryOne.getSelectionModel().getSelectedItem().getId() != 3)
             {
                 catMovie.setCategoryId(movieCategoryOne.getSelectionModel().getSelectedItem().getId());
+                catMovie.setMovieId(movie.getId());
                 catMovieModel.createCatMovies(catMovie);
             }
             if (movieCategoryTwo.getSelectionModel().getSelectedItem().getId() != 3)
             {
                 catMovie.setCategoryId(movieCategoryTwo.getSelectionModel().getSelectedItem().getId());
+                catMovie.setMovieId(movie.getId());
                 catMovieModel.createCatMovies(catMovie);
             }
             if (movieCategoryThree.getSelectionModel().getSelectedItem().getId() != 3)
             {
                 catMovie.setCategoryId(movieCategoryThree.getSelectionModel().getSelectedItem().getId());
+                catMovie.setMovieId(movie.getId());
                 catMovieModel.createCatMovies(catMovie);
             }
         }

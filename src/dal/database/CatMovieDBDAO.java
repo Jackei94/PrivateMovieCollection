@@ -6,6 +6,8 @@
 package dal.database;
 
 import be.CatMovie;
+import be.Category;
+import be.Movie;
 import dal.DalException;
 import dal.ICatMovieDao;
 import java.sql.Connection;
@@ -172,5 +174,43 @@ public class CatMovieDBDAO implements ICatMovieDao
                     .getName()).log(Level.SEVERE, null, ex);
             throw new DalException();
         }
+    }
+
+    public List<Movie> getMoviesFromCats(Category chosenCat) throws DalException
+    {
+//Miau
+        ArrayList<Movie> categoryMovies = new ArrayList<>();
+        try ( Connection con = dbCon.getConnection())
+        {
+            Integer idCat = chosenCat.getId();
+            // SQL code. 
+            String sql = "SELECT * FROM Movie INNER JOIN CatMovie ON Movie.id = CatMovie.movieId WHERE categoryId=" + idCat + ";";
+            
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            
+            
+//            Statement statement = con.createStatement();
+//            ResultSet rs = statement.executeQuery(sql);     
+            while (rs.next())
+            {
+                Movie movie = new Movie();
+                movie.setId(rs.getInt("id"));
+                movie.setName(rs.getString("name"));
+                movie.setRating(rs.getDouble("rating"));
+                movie.setFilelink(rs.getString("filelink"));
+                movie.setLastview(rs.getDate("lastview").toLocalDate());
+                movie.setImdbRating(rs.getDouble("imdbrating"));
+                categoryMovies.add(movie);
+            }
+            return categoryMovies;
+            
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDBDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            throw new DalException();
+        }
+
     }
 }

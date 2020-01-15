@@ -33,6 +33,7 @@ public class MovieModel
     private StringProperty newOrEdit = new SimpleStringProperty();
     private ObservableList<Movie> selectedMovie;
     private ObservableList<Movie> unwMovieList;
+    private ObservableList<Movie> unwatchedMovies;
     DatePicker datePicker = new DatePicker(LocalDate.now());
 
     public MovieModel() throws Exception
@@ -41,9 +42,14 @@ public class MovieModel
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());
         selectedMovie = FXCollections.observableArrayList();
+
         unwMovieList = FXCollections.observableArrayList();
       
+
+        unwatchedMovies = FXCollections.observableArrayList();
+
         
+
     }
 
     public static MovieModel getInstance() throws IOException, Exception
@@ -134,23 +140,39 @@ public class MovieModel
     {
         movieManager.playMovie(watchMovie);
     }
- public List<String> getAllMoviesByName() throws DalException {
+
+    public List<String> getAllMoviesByName() throws DalException
+    {
         return movieManager.getAllMoviesByName();
-}
- 
- public ObservableList<Movie> unwMovieList() {
-        for (int i = 0; i < allMovies.size(); i++) {
+    }
+
+    public ObservableList<Movie> getAllUnwatchedMovies() throws DalException
+    {
+        unwatchedMovies.addAll(movieManager.getAllUnwatchedMovies());
+        return unwatchedMovies;
+    }
+
+    public ObservableList<Movie> unwMovieList()
+    {
+        for (int i = 0; i < allMovies.size(); i++)
+        {
             LocalDateTime dateMinusTwoYears = LocalDateTime.now().minusYears(2);
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
             LocalDate lastViewDate = LocalDate.parse(allMovies.get(i).getLastview().toString(), formatter);
             LocalDateTime localLastViewDate = LocalDateTime.of(lastViewDate, LocalDateTime.now().toLocalTime());
             boolean afterTwoYears = localLastViewDate.isBefore(dateMinusTwoYears);
+
             if(afterTwoYears ==  true && allMovies.get(i).getRating()< 6) 
+
+            if (afterTwoYears == true)
+            {
+
                 unwMovieList.add(allMovies.get(i));
+            }
             System.out.println(unwMovieList);
         }
         return unwMovieList;
-       
+
     }
- 
+
 }

@@ -38,7 +38,7 @@ public class MovieManager
     {
         movieDao = (IMovieDao) new MovieDBDAO();
         Properties tmdbAPI = new Properties();
-        tmdbAPI.load(new FileReader("TMDB API.txt"));
+        tmdbAPI.load(new FileReader("TMDB_API.txt"));
         apiKey = tmdbAPI.getProperty("API");
     }
 
@@ -87,11 +87,15 @@ public class MovieManager
         String movieFile = watchMovie.getFilelink();
         Desktop.getDesktop().open(new File(movieFile));
     }
-    
-     public List<String> getAllMoviesByName() throws DalException
-     {
-         return movieDao.getAllMoviesByName();
-     }
+
+    public List<String> getAllMoviesByName() throws DalException
+    {
+        return movieDao.getAllMoviesByName();
+    }
+
+    public List<Movie> getAllUnwatchedMovies() throws DalException
+    {
+        return movieDao.getAllUnwatchedMovies();
+    }
 
 }
-
