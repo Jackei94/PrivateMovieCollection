@@ -152,4 +152,23 @@ public class MovieDBDAO implements IMovieDao
             ex.printStackTrace();
         }
     }
+     public List<String> getAllMoviesByName() {
+        List<String> getAllMoviesByName = new ArrayList();
+
+        try (Connection con = dbCon.getConnection()) {
+
+            PreparedStatement pstmt
+                  = con.prepareStatement("SELECT name FROM Movie");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                getAllMoviesByName.add(rs.getString("name"));
+            }
+        }
+            catch (SQLException ex) {
+            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getAllMoviesByName;
+
+    }
+        
 }

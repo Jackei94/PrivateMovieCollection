@@ -130,5 +130,7 @@ public class MovieModel
     {
         movieManager.playMovie(watchMovie);
     }
-
+ public List<String> getAllMoviesByName() throws DalException {
+        return movieManager.getAllMoviesByName();
+}
 }

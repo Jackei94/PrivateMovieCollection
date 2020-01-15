@@ -18,12 +18,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import org.json.JSONObject;
 
 /**
  *
@@ -90,31 +87,36 @@ public class MovieManager
         String movieFile = watchMovie.getFilelink();
         Desktop.getDesktop().open(new File(movieFile));
     }
+    
+     public List<String> getAllMoviesByName() throws DalException
+     {
+         return movieDao.getAllMoviesByName();
+     }
 
     public double getTmdbRating(Movie movie) throws MalformedURLException, IOException
     {
-        try {
+//        try {
             idMovie = movie.getName();
 //            idMovie = URLEncoder.encode(movie.getName(), StandardCharsets.UTF_8.toString());
 //             idMovie = URLEncoder.encode(movie.getName(), java.nio.charset.StandardCharsets.UTF_8.name());
 //                    movie.getName();
 //            yearMovie = movie.getYear()
-//            http://api.themoviedb.org/3/movie/22%20Jump%20street?api_key=f98e7f631bc6ae0e0af3f84614d30686
-//            https://api.themoviedb.org/3/search/movie?api_key=f98e7f631bc6ae0e0af3f84614d30686&query=22%20Jump%20Street&page=1
+            http://api.themoviedb.org/3/movie/22%20Jump%20street?api_key=f98e7f631bc6ae0e0af3f84614d30686
+            https://api.themoviedb.org/3/search/movie?api_key=f98e7f631bc6ae0e0af3f84614d30686&query=22%20Jump%20Street&page=1
 //            "http://api.themoviedb.org/3/movie/" + idMovie + "?api_key=" + apiKey;
-            String url = "https://api.themoviedb.org/3/search/movie?api_key=f98e7f631bc6ae0e0af3f84614d30686&query=22%20Jump%20Street&page=1";
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            } in.close();
-            movie.setTmdbRating(Double.parseDouble(response.indexOf(":") + 1));
+//            String url = "https://api.themoviedb.org/3/search/movie?api_key=f98e7f631bc6ae0e0af3f84614d30686&query=22%20Jump%20Street&page=1";
+//            URL obj = new URL(url);
+//            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//            con.setRequestMethod("GET");
+//            con.setRequestProperty("Content-Type", "application/json");
+//            BufferedReader in = new BufferedReader(
+//                new InputStreamReader(con.getInputStream()));
+//            String inputLine;
+//            StringBuffer response = new StringBuffer();
+//            while ((inputLine = in.readLine()) != null) {
+//                response.append(inputLine);
+//            } in.close();
+//            movie.setTmdbRating(Double.parseDouble(response.indexOf(":") + 1));
 //            System.out.println(response);
 //            JSONObject obj_JSONObject = new JSONObject(response.toString());
 //            System.out.println(obj_JSONObject);
@@ -124,11 +126,11 @@ public class MovieManager
 //            a.indexOf("vote_average");
             // "vote_average":6.9
             // s.substring(s.indexOf(":") + 2, s.indexOf(":") + 6);
-            
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        
+//            
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//        }
+//        
         return movie.getTmdbRating();
         
 //        URL url = new URL("http://api.themoviedb.org/3/movie/550?api_key="apiKey");

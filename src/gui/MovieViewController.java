@@ -31,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.scene.control.Alert;
 
 /**
  * FXML Controller class
@@ -134,6 +135,7 @@ public class MovieViewController implements Initializable
     {
         if (!movieModel.getSelectedMovie().isEmpty())
         {
+            
             //Edits.
             Movie movie = new Movie();
             Category category = new Category();
@@ -146,18 +148,31 @@ public class MovieViewController implements Initializable
             movieModel.getSelectedMovie().clear();
         } else
         {
+             Alert saveAlert = new Alert(Alert.AlertType.WARNING);
             // New movie.
             Movie movie = new Movie();
             Category category = new Category();
             CatMovie catMovie = new CatMovie();
             movie.setId(-1);
+            
+            
             movie.setName(movieName.getText());
+           
             movie.setYear(Integer.parseInt(movieYear.getText()));
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
             movie.setTmdbRating(movieModel.getTmdbRating(movie));
+           
+             if(movieModel.getAllMoviesByName().contains(movieName.getText())) {
+                    saveAlert.setContentText("OBS! Movie with that title already exists ");
+                    saveAlert.showAndWait();
+                    saveAlert.close();
+                
+        }else{
+       
+          
             movieModel.createMovie(movie);
-
+             }
             catMovie.setMovieId(movie.getId());
             if (movieCategoryOne.getSelectionModel().getSelectedItem().getId() != 3)
             {
