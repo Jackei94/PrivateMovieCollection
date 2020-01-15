@@ -155,7 +155,6 @@ public class MovieViewController implements Initializable
             movie.setYear(Integer.parseInt(movieYear.getText()));
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
-            movie.setTmdbRating(movieModel.getTmdbRating(movie));
             movieModel.createMovie(movie);
 
             catMovie.setMovieId(movie.getId());

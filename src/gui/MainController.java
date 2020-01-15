@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -42,11 +43,10 @@ public class MainController implements Initializable
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     private ObservableList<Movie> searchedMovies;
+    private ObservableList<String> sortMoviesCombobox = FXCollections.observableArrayList("sort by name","sort by rating");
+    private boolean sortingByName;
+    private boolean sortingByRating;
 
-    @FXML
-    private Label label;
-    @FXML
-    private ListView<Category> categoryMovieView;
     @FXML
     private ListView<Category> categoryView;
     @FXML
@@ -55,14 +55,21 @@ public class MainController implements Initializable
     private TextField searchField;
     @FXML
     private Button exitApp;
+   
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        sortMoviesCombobox.setAll("black by name");
+        sortMoviesCombobox.setAll("sort by rating");
         try
         {
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
+            sortingByName = false;
+            sortingByRating = false;
+            sortMoviesCombobox.addAll("Sort by Name", "Sort by rating");
             movieView.setItems(movieModel.getAllMovies());
             categoryView.setItems(categoryModel.getAllCategories());
 //            categoryView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal)->showItemInputDialog(mainStage));
@@ -219,4 +226,20 @@ public class MainController implements Initializable
         movieModel.playMovie(watchMovie);
     }
 
+    private void sortButton(javafx.event.ActionEvent event)
+    {
+     if (sortMoviesCombobox.getSelectionModel().getSelectedItem()=="Sort by name")
+     {
+         sortingByRating = false;
+         sortingByName = true;
+     }
+     else if (sortMoviesCombobox.getSelectionModel().getSelectedItem()=="sort by rating")
+     {
+         sortingByRating = true;
+         sortingByName = false;
+     }
+         
+     }
+
+    
 }
