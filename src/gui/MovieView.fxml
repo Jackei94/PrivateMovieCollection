@@ -10,28 +10,31 @@
 
 <AnchorPane id="AnchorPane" prefHeight="409.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MovieViewController">
    <children>
-      <TextField fx:id="movieFile" layoutX="140.0" layoutY="58.0" />
-      <TextField fx:id="movieName" layoutX="140.0" layoutY="94.0" />
-      <TextField fx:id="movieYear" layoutX="140.0" layoutY="130.0" />
-      <TextField fx:id="movieRating" layoutX="140.0" layoutY="165.0" />
-      <Button layoutX="309.0" layoutY="58.0" mnemonicParsing="false" onAction="#chooseFile" text="Choose..." />
-      <Button fx:id="movieCancel" layoutX="384.0" layoutY="352.0" mnemonicParsing="false" onAction="#movieCancelButton" text="Cancel" />
-      <Button fx:id="movieSave" layoutX="309.0" layoutY="352.0" mnemonicParsing="false" onAction="#movieSaveButton" text="Save" />
       <Label fx:id="newOrEditMovie" layoutX="140.0" layoutY="15.0" text="Movie...">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="99.0" text="Name" />
-      <Label layoutX="50.0" layoutY="170.0" text="Rating" />
-      <Label layoutX="50.0" layoutY="210.0" text="Category 1" />
       <Label layoutX="50.0" layoutY="62.0" text="File" />
-      <ChoiceBox fx:id="movieCategoryOne" layoutX="139.0" layoutY="206.0" prefWidth="150.0" />
-      <Label layoutX="50.0" layoutY="254.0" text="Category 2" />
-      <ChoiceBox fx:id="movieCategoryTwo" layoutX="139.0" layoutY="250.0" prefWidth="150.0" />
-      <Label layoutX="50.0" layoutY="296.0" text="Category 3" />
-      <ChoiceBox fx:id="movieCategoryThree" layoutX="139.0" layoutY="292.0" prefWidth="150.0" />
+      <TextField fx:id="movieFile" layoutX="140.0" layoutY="58.0" />
+      <Button layoutX="309.0" layoutY="58.0" mnemonicParsing="false" onAction="#chooseFile" text="Choose..." />
+      <Label layoutX="50.0" layoutY="99.0" text="Name" />
+      <TextField fx:id="movieName" layoutX="140.0" layoutY="94.0" />
       <Label layoutX="49.0" layoutY="134.0" text="Year" />
+      <TextField fx:id="movieYear" layoutX="140.0" layoutY="130.0" />
+      <Label layoutX="50.0" layoutY="170.0" text="Rating" />
+      <TextField fx:id="movieRating" layoutX="140.0" layoutY="165.0" />
+      <Label layoutX="51.0" layoutY="204.0" text="IMDB Rating" />
+      <TextField fx:id="imdbRating" layoutX="140.0" layoutY="200.0" />
+      <Button layoutX="315.0" layoutY="200.0" mnemonicParsing="false" onAction="#checkIMDB" text="Check IMDB" />
+      <Label layoutX="50.0" layoutY="241.0" text="Category 1" />
+      <ChoiceBox fx:id="movieCategoryOne" layoutX="139.0" layoutY="237.0" prefWidth="150.0" />
+      <Label layoutX="50.0" layoutY="285.0" text="Category 2" />
+      <ChoiceBox fx:id="movieCategoryTwo" layoutX="139.0" layoutY="281.0" prefWidth="150.0" />
+      <Label layoutX="50.0" layoutY="327.0" text="Category 3" />
+      <ChoiceBox fx:id="movieCategoryThree" layoutX="139.0" layoutY="323.0" prefWidth="150.0" />
+      <Button fx:id="movieSave" layoutX="309.0" layoutY="352.0" mnemonicParsing="false" onAction="#movieSaveButton" text="Save" />
+      <Button fx:id="movieCancel" layoutX="384.0" layoutY="352.0" mnemonicParsing="false" onAction="#movieCancelButton" text="Cancel" />
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />

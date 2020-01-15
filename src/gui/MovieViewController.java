@@ -13,14 +13,16 @@ import dal.DalException;
 import gui.model.CatMovieModel;
 import gui.model.MovieModel;
 import gui.model.CategoryModel;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,6 +70,8 @@ public class MovieViewController implements Initializable
     private ChoiceBox<Category> movieCategoryThree;
     @FXML
     private TextField movieYear;
+    @FXML
+    private TextField imdbRating;
 
     /**
      * Initializes the controller class.
@@ -75,10 +79,6 @@ public class MovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-//        Category1 = catMovieModel.getCatForMovies().get(0).getCategoryId();
-//        Category2 = catMovieModel.getCatForMovies().get(1).getCategoryId();
-//        Category3 = catMovieModel.getCatForMovies().get(2).getCategoryId();
-                
         try
         {
             movieModel = MovieModel.getInstance();
@@ -135,7 +135,7 @@ public class MovieViewController implements Initializable
     {
         if (!movieModel.getSelectedMovie().isEmpty())
         {
-            
+
             //Edits.
             Movie movie = new Movie();
             Category category = new Category();
@@ -148,31 +148,31 @@ public class MovieViewController implements Initializable
             movieModel.getSelectedMovie().clear();
         } else
         {
-             Alert saveAlert = new Alert(Alert.AlertType.WARNING);
+            Alert saveAlert = new Alert(Alert.AlertType.WARNING);
             // New movie.
             Movie movie = new Movie();
             Category category = new Category();
             CatMovie catMovie = new CatMovie();
             movie.setId(-1);
-            
-            
+
             movie.setName(movieName.getText());
-           
+
             movie.setYear(Integer.parseInt(movieYear.getText()));
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
             movie.setTmdbRating(movieModel.getTmdbRating(movie));
-           
-             if(movieModel.getAllMoviesByName().contains(movieName.getText())) {
-                    saveAlert.setContentText("OBS! Movie with that title already exists ");
-                    saveAlert.showAndWait();
-                    saveAlert.close();
-                
-        }else{
-       
-          
-            movieModel.createMovie(movie);
-             }
+
+            if (movieModel.getAllMoviesByName().contains(movieName.getText()))
+            {
+                saveAlert.setContentText("OBS! Movie with that title already exists ");
+                saveAlert.showAndWait();
+                saveAlert.close();
+
+            } else
+            {
+
+                movieModel.createMovie(movie);
+            }
             catMovie.setMovieId(movie.getId());
             if (movieCategoryOne.getSelectionModel().getSelectedItem().getId() != 3)
             {
@@ -199,6 +199,15 @@ public class MovieViewController implements Initializable
     public void setModel(MovieModel model)
     {
         this.movieModel = model;
+    }
+
+    @FXML
+    private void checkIMDB(ActionEvent event) throws IOException
+    {
+        String movieURLName;
+        movieURLName = URLEncoder.encode(movieName.getText(), StandardCharsets.UTF_8.toString());
+        String url = "https://www.imdb.com/find?s=s&q=" + movieURLName;
+        Desktop.getDesktop().browse(URI.create(url));
     }
 
 }
