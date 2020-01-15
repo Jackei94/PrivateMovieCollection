@@ -88,7 +88,7 @@ public class MovieDBDAO implements IMovieDao
             ps.setString(3, movie.getFilelink());
             ps.setString(4, unwatched.toString());
             ps.setDouble(5, movie.getImdbRating());
-            
+
             // Attempts to update the database
             int affectedRows = ps.executeUpdate();
             if (affectedRows < 1)
@@ -152,23 +152,65 @@ public class MovieDBDAO implements IMovieDao
             ex.printStackTrace();
         }
     }
-     public List<String> getAllMoviesByName() {
+
+    public List<String> getAllMoviesByName()
+    {
         List<String> getAllMoviesByName = new ArrayList();
 
-        try (Connection con = dbCon.getConnection()) {
+        try ( Connection con = dbCon.getConnection())
+        {
 
             PreparedStatement pstmt
-                  = con.prepareStatement("SELECT name FROM Movie");
+                    = con.prepareStatement("SELECT name FROM Movie");
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 getAllMoviesByName.add(rs.getString("name"));
             }
-        }
-            catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return getAllMoviesByName;
-
     }
-        
+    
+    public List<Movie> getAllUnwatchedMovies() throws DalException
+    {
+        ArrayList<Movie> unwatchedMovies = new ArrayList<>();
+        // Attempts to connect to the database.
+        try ( Connection con = dbCon.getConnection())
+        {
+            LocalDate unwatched = LocalDate.of(1990, Month.JANUARY, 01);
+            // SQL code. 
+            String sql = "SELECT * FROM Movie WHERE lastview=" + unwatched + ";";
+            // Create statement.
+            Statement statement = con.createStatement();
+            // Attempts to execute the statement.
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next())
+            {
+
+                // Add all to a list
+                Movie movie = new Movie();
+                movie.setId(rs.getInt("id"));
+                movie.setName(rs.getString("name"));
+                movie.setRating(rs.getDouble("rating"));
+                movie.setFilelink(rs.getString("filelink"));
+                movie.setLastview(rs.getDate("lastview").toLocalDate());
+                movie.setImdbRating(rs.getDouble("imdbrating"));
+
+                unwatchedMovies.add(movie);
+            }
+            System.out.println(unwatchedMovies);
+            //Return
+            return unwatchedMovies;
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDBDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            throw new DalException();
+        }
+    }
+    
 }

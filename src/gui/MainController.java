@@ -235,6 +235,16 @@ public class MainController implements Initializable
     private void onCategoryViewClicked(MouseEvent event) throws DalException
     {
         chosenCat = categoryView.getSelectionModel().getSelectedItem();
+        int checkCatId;
+        checkCatId = chosenCat.getId();
+        if(checkCatId == 1){
+            movieView.setItems(movieModel.getAllMovies());
+        }
+        else if (checkCatId == 2){
+            movieView.setItems(movieModel.getAllUnwatchedMovies());
+        }
+        else{
         movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
+        }
     }
 }

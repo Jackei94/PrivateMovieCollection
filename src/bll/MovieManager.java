@@ -87,11 +87,15 @@ public class MovieManager
         String movieFile = watchMovie.getFilelink();
         Desktop.getDesktop().open(new File(movieFile));
     }
-    
-     public List<String> getAllMoviesByName() throws DalException
-     {
-         return movieDao.getAllMoviesByName();
-     }
+
+    public List<String> getAllMoviesByName() throws DalException
+    {
+        return movieDao.getAllMoviesByName();
+    }
+
+    public List<Movie> getAllUnwatchedMovies() throws DalException
+    {
+        return movieDao.getAllUnwatchedMovies();
+    }
 
 }
-
