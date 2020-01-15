@@ -89,29 +89,29 @@ public class Movie
         this.imdbRating = tmdbRating;
     }
 
-//    public int checkIfWatched()
-//    {
-//        if (lastview.compareTo(unwatched) == 0)
-//        {
-//            return 1;
-//        } else
-//        {
-//            return 0;
-//        }
-//
-//    }
-//
-//    @Override
-//    public String toString()
-//    {
-//        if(checkIfWatched() == 1)
-//        {
-//            return tmdbRating + " ☆ - " + name + " (" + rating + ")";
-//        }
-//        else 
-//        {
-//            return tmdbRating + " ★ - " + name + " (" + rating + ")";
-//        }
-//    }
+    public int checkIfWatched()
+    {
+        if (lastview.compareTo(unwatched) == 0)
+        {
+            return 1;
+        } else
+        {
+            return 0;
+        }
+
+    }
+
+    @Override
+    public String toString()
+    {
+        if(checkIfWatched() == 1)
+        {
+            return imdbRating + " ☆ - " + name + " (" + rating + ")";
+        }
+        else 
+        {
+            return imdbRating + " ★ - " + name + " (" + rating + ")";
+        }
+    }
 
 }

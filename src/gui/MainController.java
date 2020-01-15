@@ -8,6 +8,7 @@ package gui;
 import be.Category;
 import be.Movie;
 import dal.DalException;
+import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
 import java.io.IOException;
@@ -26,10 +27,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -41,8 +42,10 @@ public class MainController implements Initializable
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    private CatMovieModel catMovieModel;
     private ObservableList<Movie> searchedMovies;
     private ObservableList<Movie> unwMovieList;
+    private Category chosenCat;
 
     @FXML
     private ListView<Category> categoryView;
@@ -64,8 +67,10 @@ public class MainController implements Initializable
         {
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
+            catMovieModel = CatMovieModel.getInstance();
             movieView.setItems(movieModel.getAllMovies());
             categoryView.setItems(categoryModel.getAllCategories());
+            
 //            categoryView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal)->showItemInputDialog(mainStage));
         } catch (Exception ex)
         {
@@ -225,4 +230,11 @@ public class MainController implements Initializable
     {
     uwMovieList.setItems(unwMovieList);
 }
+
+    @FXML
+    private void onCategoryViewClicked(MouseEvent event) throws DalException
+    {
+        chosenCat = categoryView.getSelectionModel().getSelectedItem();
+        movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
+    }
 }
