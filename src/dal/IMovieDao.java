@@ -10,11 +10,17 @@ import java.util.List;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, Christian, René & Charlie
  */
 public interface IMovieDao
 {
 
+    /**
+     * Interface for our Movie
+     *
+     * @return
+     * @throws DalException
+     */
     List<Movie> getAllMovies() throws DalException;
 
     void createMovie(Movie movie) throws DalException;
@@ -22,10 +28,9 @@ public interface IMovieDao
     void editMovie(Movie movie) throws DalException;
 
     void deleteMovie(Movie selectedMovie) throws DalException;
-   
+
     List<String> getAllMoviesByName() throws DalException;
-    
+
     List<Movie> getAllUnwatchedMovies() throws DalException;
-       
-    
+
 }
