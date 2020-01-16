@@ -12,11 +12,17 @@ import java.util.List;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, Christian, René & Charlie
  */
 public interface ICatMovieDao
 {
 
+    /**
+     * Interface for our CatMovie
+     *
+     * @return
+     * @throws DalException
+     */
     List<CatMovie> getAllCatMovies() throws DalException;
 
     void createCatMovies(CatMovie catmovie) throws DalException;
@@ -24,8 +30,8 @@ public interface ICatMovieDao
     void editCatMovies(CatMovie catMovie) throws DalException;
 
     void deleteCatMovies(CatMovie selectedCatMovie) throws DalException;
-    
+
     List<CatMovie> getCatForMovies() throws DalException;
-    
+
     List<Movie> getMoviesFromCats(Category chosenCat) throws DalException;
 }

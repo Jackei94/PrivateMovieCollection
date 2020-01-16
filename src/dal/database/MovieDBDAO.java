@@ -20,11 +20,10 @@ import java.util.logging.Logger;
 import dal.IMovieDao;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class MovieDBDAO implements IMovieDao
 {
@@ -42,7 +41,7 @@ public class MovieDBDAO implements IMovieDao
     {
         ArrayList<Movie> allMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Movie;";
@@ -77,7 +76,7 @@ public class MovieDBDAO implements IMovieDao
     public void createMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code
             String sql = "INSERT INTO Movie (name, rating, filelink, lastview, imdbrating) VALUES (?,?,?,?,?);";
@@ -110,7 +109,7 @@ public class MovieDBDAO implements IMovieDao
     public void editMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE Movie SET name=?, rating=?, filelink=? WHERE id=?;";
@@ -137,7 +136,7 @@ public class MovieDBDAO implements IMovieDao
     public void deleteMovie(Movie selectedMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "DELETE FROM Movie WHERE id=?;";
@@ -156,10 +155,10 @@ public class MovieDBDAO implements IMovieDao
     public List<String> getAllMoviesByName()
     {
         List<String> getAllMoviesByName = new ArrayList();
-
-        try ( Connection con = dbCon.getConnection())
+        // Attempts to connect to the database.
+        try (Connection con = dbCon.getConnection())
         {
-
+            // Prepared statement. 
             PreparedStatement pstmt
                     = con.prepareStatement("SELECT name FROM Movie");
             ResultSet rs = pstmt.executeQuery();
@@ -171,6 +170,7 @@ public class MovieDBDAO implements IMovieDao
         {
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Return
         return getAllMoviesByName;
     }
 
@@ -178,10 +178,9 @@ public class MovieDBDAO implements IMovieDao
     {
         ArrayList<Movie> unwatchedMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
 
-//            LocalDate unwatched = LocalDate.of(1990, Month.JANUARY, 01);
             // SQL code. 
             String sql = "SELECT * FROM Movie WHERE lastview ='" + unwatched + "';";
             // Create statement.

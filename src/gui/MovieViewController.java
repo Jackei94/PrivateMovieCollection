@@ -38,7 +38,7 @@ import javafx.scene.control.Alert;
 /**
  * FXML Controller class
  *
- * @author Jacob
+ * @author Jacob, Christian, René & CharlieMo
  */
 public class MovieViewController implements Initializable
 {
@@ -149,15 +149,14 @@ public class MovieViewController implements Initializable
             Alert saveAlert = new Alert(Alert.AlertType.WARNING);
             // New movie.
             Movie movie = new Movie();
-            Category category = new Category();
             CatMovie catMovie = new CatMovie();
             movie.setId(-1);
 
             movie.setName(movieName.getText());
-
+          
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
-            movieModel.createMovie(movie);
+            
             movie.setImdbRating(Double.parseDouble(imdbRating.getText()));
 
             if (movieModel.getAllMoviesByName().contains(movieName.getText()))
@@ -165,13 +164,16 @@ public class MovieViewController implements Initializable
                 saveAlert.setContentText("OBS! Movie with that title already exists ");
                 saveAlert.showAndWait();
                 saveAlert.close();
-
-            } else
-            {
-
-                movieModel.createMovie(movie);
+                movieModel.deleteMovie(movie);
+                
             }
-
+            else
+            {
+             
+            
+                movieModel.createMovie(movie);
+            
+            }
             if (movieCategoryOne.getSelectionModel().getSelectedItem().getId() != 3)
             {
                 catMovie.setCategoryId(movieCategoryOne.getSelectionModel().getSelectedItem().getId());

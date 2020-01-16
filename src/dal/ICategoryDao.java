@@ -10,13 +10,19 @@ import java.util.List;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, Christian, René & Charlie
  */
 public interface ICategoryDao
 {
 
+    /**
+     * Interface for our Category
+     *
+     * @return
+     * @throws DalException
+     */
     List<Category> getAllCategories() throws DalException;
-    
+
     List<Category> getAllCategoriesToChoicebox() throws DalException;
 
     void createCategory(Category category) throws DalException;

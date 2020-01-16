@@ -7,7 +7,7 @@ package dal;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class DalException extends Exception
 {

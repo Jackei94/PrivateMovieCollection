@@ -7,7 +7,6 @@ package gui;
 
 import be.Category;
 import bll.BLLException;
-import gui.MainController;
 import dal.DalException;
 import gui.model.CategoryModel;
 import java.net.URL;
@@ -25,7 +24,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Jacob
+ * @author Jacob, Christian, René & Charlie
  */
 public class CategoryViewController implements Initializable
 {

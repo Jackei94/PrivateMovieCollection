@@ -14,10 +14,12 @@ import java.util.Properties;
 
 /**
  *
- * @author tramm
+ * @author Jacob, Christian, René & Charlie
  */
-public class DatabaseConnector {
-     private SQLServerDataSource dataSource;
+public class DatabaseConnector
+{
+
+    private SQLServerDataSource dataSource;
 
     /**
      * Constructor for our DatabaseConnector.

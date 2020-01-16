@@ -6,7 +6,6 @@
 package dal.database;
 
 import be.Category;
-import be.Movie;
 import dal.DalException;
 import dal.ICategoryDao;
 import java.sql.Connection;
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, Christian, René & Charlie
  */
 public class CategoryDBDAO implements ICategoryDao
 {
@@ -37,7 +36,7 @@ public class CategoryDBDAO implements ICategoryDao
     {
         ArrayList<Category> allCategories = new ArrayList<>();
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Category EXCEPT SELECT '3', 'Select Category' FROM Category;";
@@ -65,12 +64,12 @@ public class CategoryDBDAO implements ICategoryDao
             throw new DalException();
         }
     }
-    
+
     public List<Category> getAllCategoriesToChoicebox() throws DalException
     {
         ArrayList<Category> allCategories = new ArrayList<>();
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Category EXCEPT SELECT '1', 'All Movies' FROM Category EXCEPT SELECT '2', 'Unwatched' FROM Category;";
@@ -131,7 +130,7 @@ public class CategoryDBDAO implements ICategoryDao
     public void editCategory(Category category) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE Category SET name=? WHERE id=?;";
@@ -156,7 +155,7 @@ public class CategoryDBDAO implements ICategoryDao
     public void deleteCategory(Category selectedCategory) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "DELETE FROM Category WHERE id=?;";

@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, Christian, René & Charlie
  */
 public class MainController implements Initializable
 {
@@ -46,7 +46,7 @@ public class MainController implements Initializable
     private CategoryModel categoryModel;
     private CatMovieModel catMovieModel;
     private ObservableList<Movie> searchedMovies;
-    private ObservableList<String> sortMoviesCombobox = FXCollections.observableArrayList("sort by name", "sort by rating");
+    private ObservableList<String> sortMoviesCombobox = FXCollections.observableArrayList("Sort by name", "Sort by rating");
     private boolean sortingByName;
     private boolean sortingByRating;
     private ObservableList<Movie> unwMovieList;
@@ -68,8 +68,8 @@ public class MainController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        sortMoviesCombobox.setAll("black by name");
-        sortMoviesCombobox.setAll("sort by rating");
+        sortMoviesCombobox.setAll("Sort by name");
+        sortMoviesCombobox.setAll("Sort by rating");
         try
         {
             movieModel = MovieModel.getInstance();
@@ -251,7 +251,7 @@ public class MainController implements Initializable
 //        {
 //            sortingByRating = false;
 //            sortingByName = true;
-//        } else if (sortMoviesCombobox.getSelectionModel().getSelectedItem() == "sort by rating")
+//        } else if (sortMoviesCombobox.getSelectionModel().getSelectedItem() == "Sort by rating")
 //        {
 //            sortingByRating = true;
 //            sortingByName = false;

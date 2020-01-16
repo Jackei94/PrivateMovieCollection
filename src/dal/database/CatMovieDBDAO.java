@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class CatMovieDBDAO implements ICatMovieDao
 {
@@ -38,7 +38,7 @@ public class CatMovieDBDAO implements ICatMovieDao
     {
         ArrayList<CatMovie> allCatMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM CatMovie;";
@@ -70,7 +70,7 @@ public class CatMovieDBDAO implements ICatMovieDao
     public void createCatMovies(CatMovie catMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code
             String sql = "INSERT INTO CatMovie (categoryId, movieId) VALUES (?,?);";
@@ -100,7 +100,7 @@ public class CatMovieDBDAO implements ICatMovieDao
     public void editCatMovies(CatMovie catMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE CatMovie SET categoryId=? movieId=? WHERE id=?;";
@@ -127,7 +127,7 @@ public class CatMovieDBDAO implements ICatMovieDao
     public void deleteCatMovies(CatMovie selectedCatMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "DELETE FROM CatMovie WHERE id=?;";
@@ -147,7 +147,7 @@ public class CatMovieDBDAO implements ICatMovieDao
     {
         ArrayList<CatMovie> allCatForMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try ( Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM CatMovie WHERE movieId=?;";
@@ -178,22 +178,21 @@ public class CatMovieDBDAO implements ICatMovieDao
 
     public List<Movie> getMoviesFromCats(Category chosenCat) throws DalException
     {
-//Miau
+
         ArrayList<Movie> categoryMovies = new ArrayList<>();
-        try ( Connection con = dbCon.getConnection())
+        // Attempts to connect to the database.
+        try (Connection con = dbCon.getConnection())
         {
             Integer idCat = chosenCat.getId();
             // SQL code. 
             String sql = "SELECT * FROM Movie INNER JOIN CatMovie ON Movie.id = CatMovie.movieId WHERE categoryId=" + idCat + ";";
-            
+
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            
-            
-//            Statement statement = con.createStatement();
-//            ResultSet rs = statement.executeQuery(sql);     
+
             while (rs.next())
             {
+                // Add all to a list
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
                 movie.setName(rs.getString("name"));
@@ -203,8 +202,9 @@ public class CatMovieDBDAO implements ICatMovieDao
                 movie.setImdbRating(rs.getDouble("imdbrating"));
                 categoryMovies.add(movie);
             }
+            //Return
             return categoryMovies;
-            
+
         } catch (SQLException ex)
         {
             Logger.getLogger(MovieDBDAO.class

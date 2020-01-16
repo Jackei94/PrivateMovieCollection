@@ -15,43 +15,80 @@ import java.util.List;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class CatMovieManager
 {
-    
+
     private ICatMovieDao catMovieDao;
-    
+
     public CatMovieManager() throws Exception
     {
         catMovieDao = (ICatMovieDao) new CatMovieDBDAO();
     }
-    
+
+    /**
+     * Sends the list to Gui Layer
+     *
+     * @return
+     * @throws DalException
+     */
     public List<CatMovie> getAllMovies() throws DalException
     {
         return catMovieDao.getAllCatMovies();
     }
-    
+
+    /**
+     * Infomation of create Movie
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void createCatMovies(CatMovie catMovie) throws DalException
     {
         catMovieDao.createCatMovies(catMovie);
     }
-    
+
+    /**
+     * Information of Edit Movie
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void editMovie(CatMovie catMovie) throws DalException
     {
         catMovieDao.editCatMovies(catMovie);
     }
-    
+
+    /**
+     * Information of delete Movie
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void deleteMovie(CatMovie catMovie) throws DalException
     {
         catMovieDao.deleteCatMovies(catMovie);
     }
-    
+
+    /**
+     * Sends the list to Gui Layer
+     *
+     * @return
+     * @throws DalException
+     */
     public List<CatMovie> getCatForMovies() throws DalException
     {
         return catMovieDao.getCatForMovies();
     }
-    
+
+    /**
+     * Sends the list to Gui Layer
+     *
+     * @param chosenCat
+     * @return
+     * @throws DalException
+     */
     public List<Movie> getMoviesFromCats(Category chosenCat) throws DalException
     {
         return catMovieDao.getMoviesFromCats(chosenCat);
