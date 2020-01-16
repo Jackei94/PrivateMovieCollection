@@ -30,7 +30,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -46,7 +49,6 @@ public class MainController implements Initializable
     private CategoryModel categoryModel;
     private CatMovieModel catMovieModel;
     private ObservableList<Movie> searchedMovies;
-    private ObservableList<String> sortMoviesCombobox = FXCollections.observableArrayList("Sort by name", "Sort by rating");
     private boolean sortingByName;
     private boolean sortingByRating;
     private ObservableList<Movie> unwMovieList;
@@ -54,8 +56,7 @@ public class MainController implements Initializable
 
     @FXML
     private ListView<Category> categoryView;
-    @FXML
-    private ListView<Movie> movieView;
+    
     @FXML
     private TextField searchField;
     @FXML
@@ -64,28 +65,34 @@ public class MainController implements Initializable
     private Button uwMovies;
     @FXML
     private ListView<Movie> uwMovieList;
+    @FXML
+    private TableView<Movie> movieView;
+    @FXML
+    private TableColumn<Movie, Double> imdbView;
+    @FXML
+    private TableColumn<Movie, String> nameView;
+    @FXML
+    private TableColumn<Movie, Double> ratingView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        sortMoviesCombobox.setAll("Sort by name");
-        sortMoviesCombobox.setAll("Sort by rating");
         try
         {
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
-            sortingByName = false;
-            sortingByRating = false;
-            sortMoviesCombobox.addAll("Sort by Name", "Sort by rating");
             catMovieModel = CatMovieModel.getInstance();
-            movieView.setItems(movieModel.getAllMovies());
             categoryView.setItems(categoryModel.getAllCategories());
-
-//            categoryView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal)->showItemInputDialog(mainStage));
         } catch (Exception ex)
         {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        movieView.setItems(movieModel.getAllMovies());
+        // Sets all cells to their values for song table
+        imdbView.setCellValueFactory(new PropertyValueFactory("imdbRating"));
+        nameView.setCellValueFactory(new PropertyValueFactory("name"));
+        ratingView.setCellValueFactory(new PropertyValueFactory("rating"));
+        
     }
 
     public MainController() throws Exception
@@ -239,11 +246,8 @@ public class MainController implements Initializable
     private void uwMovies(ActionEvent event) throws IOException
     {
 
-     uwMovieList.setItems(movieModel.unwMovieList());
-}
-
-        
-    
+        uwMovieList.setItems(movieModel.unwMovieList());
+    }
 
     private void sortButton(javafx.event.ActionEvent event)
     {
@@ -276,6 +280,5 @@ public class MainController implements Initializable
             movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
         }
     }
-
 
 }
