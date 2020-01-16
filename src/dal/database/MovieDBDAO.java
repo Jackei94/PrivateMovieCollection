@@ -128,7 +128,6 @@ public class MovieDBDAO implements IMovieDao
             {
                 throw new SQLException("Can't edit movie");
             }
-            System.out.println("it has been done");
         } catch (SQLException ex)
         {
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);

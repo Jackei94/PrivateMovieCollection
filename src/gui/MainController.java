@@ -53,6 +53,7 @@ public class MainController implements Initializable
     private boolean sortingByRating;
     private ObservableList<Movie> unwMovieList;
     private Category chosenCat;
+    
 
     @FXML
     private ListView<Category> categoryView;
@@ -117,13 +118,15 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void movieEditButton(ActionEvent event) throws IOException
+    private void movieEditButton(ActionEvent event) throws IOException, DalException
     {
         this.movieModel = movieModel;
         movieModel.setNewOrEdit("Edit Movie");
-
         Movie movie = movieView.getSelectionModel().getSelectedItem();
         movieModel.addSelectedMovie(movie);
+        
+//        chosenMov = movieView.getSelectionModel().getSelectedItem();
+//        catMovieModel.getCatForMovies(chosenMov);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MovieView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();

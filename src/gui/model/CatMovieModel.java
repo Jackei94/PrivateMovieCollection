@@ -26,6 +26,7 @@ public class CatMovieModel
     private ObservableList<CatMovie> allCatMovies;
     private ObservableList<CatMovie> selectedCatMovie;
     private ObservableList<Movie> catMovie;
+    private ObservableList<Category> movieCategory;
     private CatMovieManager catMovieManager;
 
     public CatMovieModel() throws DalException, Exception
@@ -35,6 +36,7 @@ public class CatMovieModel
         allCatMovies.addAll(catMovieManager.getAllMovies());
         selectedCatMovie = FXCollections.observableArrayList();
         catMovie = FXCollections.observableArrayList();
+        movieCategory = FXCollections.observableArrayList();
     }
 
     public static CatMovieModel getInstance() throws IOException, Exception
@@ -57,9 +59,12 @@ public class CatMovieModel
         return allCatMovies;
     }
 
-    public ObservableList<CatMovie> getCatForMovies()
+    public ObservableList<Category> getCatForMovies(Movie chosenMovie) throws DalException
     {
-        return allCatMovies;
+        List<Category> tempMovies = catMovieManager.getCatForMovies(chosenMovie);
+        movieCategory.clear();
+        movieCategory.addAll(tempMovies);
+        return movieCategory;
     }
 
     public void createCatMovies(CatMovie catMovie) throws DalException
@@ -94,7 +99,6 @@ public class CatMovieModel
 
     public ObservableList<Movie> getMoviesFromCats(Category chosenCat) throws DalException
     {
-
         List<Movie> tempMovies = catMovieManager.getMoviesFromCats(chosenCat);
         catMovie.clear();
         catMovie.addAll(tempMovies);

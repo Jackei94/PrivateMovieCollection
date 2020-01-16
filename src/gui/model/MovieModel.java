@@ -42,9 +42,7 @@ public class MovieModel
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());
         selectedMovie = FXCollections.observableArrayList();
-
         unwMovieList = FXCollections.observableArrayList();
-
         unwatchedMovies = FXCollections.observableArrayList();
 
     }
