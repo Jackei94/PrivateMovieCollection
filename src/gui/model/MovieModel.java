@@ -169,7 +169,8 @@ public class MovieModel
 
                 unwMovieList.add(allMovies.get(i));
             }
-            System.out.println(unwMovieList);
+            
+          
         }
         return unwMovieList;
 

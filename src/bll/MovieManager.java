@@ -29,7 +29,7 @@ import java.util.Properties;
 public class MovieManager
 {
 
-    private String apiKey;
+    
     private String idMovie;
 
     private IMovieDao movieDao;
@@ -37,9 +37,8 @@ public class MovieManager
     public MovieManager() throws Exception
     {
         movieDao = (IMovieDao) new MovieDBDAO();
-        Properties tmdbAPI = new Properties();
-        tmdbAPI.load(new FileReader("TMDB_API.txt"));
-        apiKey = tmdbAPI.getProperty("API");
+        
+       
     }
 
     public List<Movie> getAllMovies() throws DalException

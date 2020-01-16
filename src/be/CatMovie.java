@@ -7,7 +7,7 @@ package be;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, René, Christian & Charlie
  */
 public class CatMovie
 {
@@ -15,31 +15,50 @@ public class CatMovie
     private int categoryId;
     private int movieId;
 
+    /**
+     * Gets the Id of CatMovie
+     * @return id
+     */
     public int getId()
     {
         return id;
     }
-
+/**
+ * Sets the Id of CatMovie
+ * @param id 
+ */
     public void setId(int id)
     {
         this.id = id;
     }
-
+/**
+ * Gets the Id of Category
+ * @return categoryId
+ */
     public int getCategoryId()
     {
         return categoryId;
     }
-
+/**
+ * Sets the Id of Category
+ * @param categoryId 
+ */
     public void setCategoryId(int categoryId)
     {
         this.categoryId = categoryId;
     }
-
+/**
+ * Gets the Id of Movie
+ * @return movieId
+ */
     public int getMovieId()
     {
         return movieId;
     }
-
+/**
+ * Sets the Id of Movie
+ * @param movieId 
+ */
     public void setMovieId(int movieId)
     {
         this.movieId = movieId;

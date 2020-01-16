@@ -242,8 +242,8 @@ public class MainController implements Initializable
      uwMovieList.setItems(movieModel.unwMovieList());
 }
 
-        uwMovieList.setItems(unwMovieList);
-    }
+        
+    
 
     private void sortButton(javafx.event.ActionEvent event)
     {
