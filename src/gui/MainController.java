@@ -236,31 +236,17 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void playMovieButton(ActionEvent event) throws IOException
+    private void playMovieButton(ActionEvent event) throws IOException, DalException
     {
         Movie watchMovie = movieView.getSelectionModel().getSelectedItem();
         movieModel.playMovie(watchMovie);
+        movieModel.playedMovie(watchMovie);
     }
 
     @FXML
     private void uwMovies(ActionEvent event) throws IOException
     {
-
         uwMovieList.setItems(movieModel.unwMovieList());
-    }
-
-    private void sortButton(javafx.event.ActionEvent event)
-    {
-//        if (sortMoviesCombobox.getSelectionModel().getSelectedItem() == "Sort by name")
-//        {
-//            sortingByRating = false;
-//            sortingByName = true;
-//        } else if (sortMoviesCombobox.getSelectionModel().getSelectedItem() == "Sort by rating")
-//        {
-//            sortingByRating = true;
-//            sortingByName = false;
-//        }
-
     }
 
     @FXML

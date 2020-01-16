@@ -112,21 +112,23 @@ public class MovieDBDAO implements IMovieDao
         try (Connection con = dbCon.getConnection())
         {
             // SQL code. 
-            String sql = "UPDATE Movie SET name=?, rating=?, filelink=? WHERE id=?;";
+            String sql = "UPDATE Movie SET name=?, rating=?, filelink=?, imdbrating=? WHERE id=?;";
             // Prepared statement
             PreparedStatement ps = con.prepareStatement(sql);
             // Sets the strings.
             ps.setString(1, movie.getName());
             ps.setDouble(2, movie.getRating());
             ps.setString(3, movie.getFilelink());
-            ps.setInt(4, movie.getId());
+            ps.setDouble(4, movie.getImdbRating());
+            ps.setInt(5, movie.getId());
+            
             // Attempts to execute SQL code.
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
                 throw new SQLException("Can't edit movie");
             }
-
+            System.out.println("it has been done");
         } catch (SQLException ex)
         {
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,6 +210,32 @@ public class MovieDBDAO implements IMovieDao
             Logger.getLogger(MovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
             throw new DalException();
+        }
+    }
+    
+    public void playedMovie(Movie movie) throws DalException
+    {
+        // Attempts to connect to the database.
+        try (Connection con = dbCon.getConnection())
+        {
+            // SQL code. 
+            String sql = "UPDATE Movie SET lastview=? WHERE id=?;";
+            // Prepared statement
+            PreparedStatement ps = con.prepareStatement(sql);
+            // Sets the strings.
+            ps.setString(1, LocalDate.now().toString());
+            ps.setInt(2, movie.getId());
+            
+            // Attempts to execute SQL code.
+            int affected = ps.executeUpdate();
+            if (affected < 1)
+            {
+                throw new SQLException("Can't edit movie");
+            }
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

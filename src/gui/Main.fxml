@@ -69,10 +69,10 @@
                         </Button>
                         <Button mnemonicParsing="false" onAction="#movieDeleteButton" text="Delete">
                            <HBox.margin>
-                              <Insets right="45.0" />
+                              <Insets right="123.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#playMovieButton" text="Play movie in mediaplayer" />
+                        <Button mnemonicParsing="false" onAction="#playMovieButton" text="Play movie" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -88,8 +88,8 @@
             <Font name="Impact" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="exitApp" layoutX="721.0" layoutY="550.0" mnemonicParsing="false" onAction="#exitApp" text=":'C" />
-      <Button fx:id="uwMovies" layoutX="483.0" layoutY="538.0" mnemonicParsing="false" onAction="#uwMovies" text="Button" />
-      <ListView fx:id="uwMovieList" layoutX="270.0" layoutY="534.0" prefHeight="83.0" prefWidth="200.0" />
+      <Button fx:id="exitApp" layoutX="705.0" layoutY="551.0" mnemonicParsing="false" onAction="#exitApp" text="Close" />
+      <Button fx:id="uwMovies" layoutX="50.0" layoutY="538.0" mnemonicParsing="false" onAction="#uwMovies" text="Bad Movies" />
+      <ListView fx:id="uwMovieList" layoutX="151.0" layoutY="534.0" prefHeight="70.0" prefWidth="264.0" />
    </children>
 </AnchorPane>

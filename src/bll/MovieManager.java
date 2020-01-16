@@ -10,17 +10,10 @@ import dal.DalException;
 import dal.IMovieDao;
 import dal.database.MovieDBDAO;
 import java.awt.Desktop;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  *
@@ -92,6 +85,11 @@ public class MovieManager
     public List<Movie> getAllUnwatchedMovies() throws DalException
     {
         return movieDao.getAllUnwatchedMovies();
+    }
+
+    public void playedMovie(Movie movie) throws DalException
+    {
+        movieDao.playedMovie(movie);
     }
 
 }
