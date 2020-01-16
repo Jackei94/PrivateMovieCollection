@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import dal.IMovieDao;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -51,7 +52,6 @@ public class MovieDBDAO implements IMovieDao
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next())
             {
-
                 // Add all to a list
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
@@ -173,23 +173,23 @@ public class MovieDBDAO implements IMovieDao
         }
         return getAllMoviesByName;
     }
-    
+
     public List<Movie> getAllUnwatchedMovies() throws DalException
     {
         ArrayList<Movie> unwatchedMovies = new ArrayList<>();
         // Attempts to connect to the database.
         try ( Connection con = dbCon.getConnection())
         {
-            LocalDate unwatched = LocalDate.of(1990, Month.JANUARY, 01);
+
+//            LocalDate unwatched = LocalDate.of(1990, Month.JANUARY, 01);
             // SQL code. 
-            String sql = "SELECT * FROM Movie WHERE lastview=" + unwatched + ";";
+            String sql = "SELECT * FROM Movie WHERE lastview ='" + unwatched + "';";
             // Create statement.
             Statement statement = con.createStatement();
             // Attempts to execute the statement.
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next())
             {
-
                 // Add all to a list
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
@@ -201,7 +201,6 @@ public class MovieDBDAO implements IMovieDao
 
                 unwatchedMovies.add(movie);
             }
-            System.out.println(unwatchedMovies);
             //Return
             return unwatchedMovies;
 
@@ -212,5 +211,5 @@ public class MovieDBDAO implements IMovieDao
             throw new DalException();
         }
     }
-    
+
 }

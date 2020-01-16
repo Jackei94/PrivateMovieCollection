@@ -29,7 +29,6 @@ import java.util.Properties;
 public class MovieManager
 {
 
-    
     private String idMovie;
 
     private IMovieDao movieDao;
@@ -37,8 +36,6 @@ public class MovieManager
     public MovieManager() throws Exception
     {
         movieDao = (IMovieDao) new MovieDBDAO();
-        
-       
     }
 
     public List<Movie> getAllMovies() throws DalException

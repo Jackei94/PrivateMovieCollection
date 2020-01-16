@@ -148,6 +148,7 @@ public class MovieModel
 
     public ObservableList<Movie> getAllUnwatchedMovies() throws DalException
     {
+        unwatchedMovies.clear();
         unwatchedMovies.addAll(movieManager.getAllUnwatchedMovies());
         return unwatchedMovies;
     }
