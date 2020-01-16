@@ -89,11 +89,13 @@ public class MovieViewController implements Initializable
         if (!movieModel.getSelectedMovie().isEmpty())
         {
             // Sets the data in fields if a song is selected.
+            movieFile.setText(movieModel.getSelectedMovie().get(0).getFilelink());
             movieName.setText(movieModel.getSelectedMovie().get(0).getName());
             movieRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getRating()));
+            imdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
 //            movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
 //            movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
-            movieFile.setText(movieModel.getSelectedMovie().get(0).getFilelink());
+            
         }
         this.movieModel = movieModel;
         newOrEditMovie.textProperty().unbind();
@@ -151,28 +153,19 @@ public class MovieViewController implements Initializable
             Movie movie = new Movie();
             CatMovie catMovie = new CatMovie();
             movie.setId(-1);
-
             movie.setName(movieName.getText());
-          
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
-            
             movie.setImdbRating(Double.parseDouble(imdbRating.getText()));
-
             if (movieModel.getAllMoviesByName().contains(movieName.getText()))
             {
                 saveAlert.setContentText("OBS! Movie with that title already exists ");
                 saveAlert.showAndWait();
                 saveAlert.close();
                 movieModel.deleteMovie(movie);
-                
-            }
-            else
+            } else
             {
-             
-            
                 movieModel.createMovie(movie);
-            
             }
             if (movieCategoryOne.getSelectionModel().getSelectedItem().getId() != 3)
             {
