@@ -21,18 +21,116 @@ import java.util.List;
  */
 public class MovieManager
 {
+
     private IMovieDao movieDao;
 
+    /**
+     * Constructor for MovieManager
+     *
+     * @throws Exception
+     */
     public MovieManager() throws Exception
     {
         movieDao = (IMovieDao) new MovieDBDAO();
     }
 
+    /**
+     * Returns all movies.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<Movie> getAllMovies() throws DalException
     {
         return movieDao.getAllMovies();
     }
 
+    /**
+     * Creates the movie.
+     *
+     * @param movie
+     * @throws DalException
+     */
+    public void createMovie(Movie movie) throws DalException
+    {
+        movieDao.createMovie(movie);
+    }
+
+    /**
+     * Edits the movie
+     *
+     * @param movie
+     * @throws DalException
+     */
+    public void editMovie(Movie movie) throws DalException
+    {
+        movieDao.editMovie(movie);
+    }
+
+    /**
+     * Deletes the movie
+     *
+     * @param movie
+     * @throws DalException
+     */
+    public void deleteMovie(Movie movie) throws DalException
+    {
+        movieDao.deleteMovie(movie);
+    }
+
+    /**
+     * Opens the system default player and plays it.
+     *
+     * @param watchMovie
+     * @throws IOException
+     */
+    public void playMovie(Movie watchMovie) throws IOException
+    {
+        watchMovie = watchMovie;
+        String movieFile = watchMovie.getFilelink();
+        Desktop.getDesktop().open(new File(movieFile));
+    }
+
+    /**
+     * Returns all movies by name
+     *
+     * @return
+     * @throws DalException
+     */
+    public List<String> getAllMoviesByName() throws DalException
+    {
+        return movieDao.getAllMoviesByName();
+    }
+
+    /**
+     * Returns all unwatched movies.
+     *
+     * @return
+     * @throws DalException
+     */
+    public List<Movie> getAllUnwatchedMovies() throws DalException
+    {
+        return movieDao.getAllUnwatchedMovies();
+    }
+
+    /**
+     * Updates the movie for when it is played.
+     *
+     * @param movie
+     * @throws DalException
+     */
+    public void playedMovie(Movie movie) throws DalException
+    {
+        movieDao.playedMovie(movie);
+    }
+
+    /**
+     * Search the current movies, and displays it.
+     *
+     * @param movie
+     * @param searchQuery
+     * @return
+     */
     public ArrayList<Movie> search(List<Movie> movie, String searchQuery)
     {
         ArrayList<Movie> result = new ArrayList<>();
@@ -50,43 +148,6 @@ public class MovieManager
             }
         }
         return result;
-    }
-
-    public void createMovie(Movie movie) throws DalException
-    {
-        movieDao.createMovie(movie);
-    }
-
-    public void editMovie(Movie movie) throws DalException
-    {
-        movieDao.editMovie(movie);
-    }
-
-    public void deleteMovie(Movie movie) throws DalException
-    {
-        movieDao.deleteMovie(movie);
-    }
-
-    public void playMovie(Movie watchMovie) throws IOException
-    {
-        watchMovie = watchMovie;
-        String movieFile = watchMovie.getFilelink();
-        Desktop.getDesktop().open(new File(movieFile));
-    }
-
-    public List<String> getAllMoviesByName() throws DalException
-    {
-        return movieDao.getAllMoviesByName();
-    }
-
-    public List<Movie> getAllUnwatchedMovies() throws DalException
-    {
-        return movieDao.getAllUnwatchedMovies();
-    }
-
-    public void playedMovie(Movie movie) throws DalException
-    {
-        movieDao.playedMovie(movie);
     }
 
 }

@@ -30,17 +30,28 @@ public class MovieDBDAO implements IMovieDao
     private final DatabaseConnector dbCon;
     private final LocalDate unwatched;
 
+    /**
+     * Constructor for the MovieDBDAO.
+     *
+     * @throws Exception
+     */
     public MovieDBDAO() throws Exception
     {
         dbCon = new DatabaseConnector();
         unwatched = LocalDate.of(1990, Month.JANUARY, 01);
     }
 
+    /**
+     * Returns all movies from Database.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<Movie> getAllMovies() throws DalException
     {
         ArrayList<Movie> allMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Movie;";
@@ -72,10 +83,16 @@ public class MovieDBDAO implements IMovieDao
         }
     }
 
+    /**
+     * Creates the movie in the Database.
+     *
+     * @param movie
+     * @throws DalException
+     */
     public void createMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code
             String sql = "INSERT INTO Movie (name, rating, filelink, lastview, imdbrating) VALUES (?,?,?,?,?);";
@@ -91,7 +108,7 @@ public class MovieDBDAO implements IMovieDao
             int affectedRows = ps.executeUpdate();
             if (affectedRows < 1)
             {
-          
+
                 throw new DalException("Can't save movie");
             }
 
@@ -106,10 +123,16 @@ public class MovieDBDAO implements IMovieDao
         }
     }
 
+    /**
+     * Edits the movie in the Database.
+     *
+     * @param movie
+     * @throws DalException
+     */
     public void editMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE Movie SET name=?, rating=?, filelink=?, imdbrating=? WHERE id=?;";
@@ -121,7 +144,7 @@ public class MovieDBDAO implements IMovieDao
             ps.setString(3, movie.getFilelink());
             ps.setDouble(4, movie.getImdbRating());
             ps.setInt(5, movie.getId());
-            
+
             // Attempts to execute SQL code.
             int affected = ps.executeUpdate();
             if (affected < 1)
@@ -134,10 +157,16 @@ public class MovieDBDAO implements IMovieDao
         }
     }
 
+    /**
+     * Deletes the movie in the Database.
+     *
+     * @param selectedMovie
+     * @throws DalException
+     */
     public void deleteMovie(Movie selectedMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "DELETE FROM Movie WHERE id=?;";
@@ -152,11 +181,16 @@ public class MovieDBDAO implements IMovieDao
         }
     }
 
+    /**
+     * Returns all movies by name from the Database.
+     *
+     * @return
+     */
     public List<String> getAllMoviesByName()
     {
         List<String> getAllMoviesByName = new ArrayList();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // Prepared statement. 
             PreparedStatement pstmt
@@ -174,11 +208,17 @@ public class MovieDBDAO implements IMovieDao
         return getAllMoviesByName;
     }
 
+    /**
+     * Returns all unwatched movies from the database.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<Movie> getAllUnwatchedMovies() throws DalException
     {
         ArrayList<Movie> unwatchedMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
 
             // SQL code. 
@@ -210,11 +250,17 @@ public class MovieDBDAO implements IMovieDao
             throw new DalException("Can´t create list");
         }
     }
-    
+
+    /**
+     * Updates the lastview for the movie in the database.
+     *
+     * @param movie
+     * @throws DalException
+     */
     public void playedMovie(Movie movie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE Movie SET lastview=? WHERE id=?;";
@@ -223,7 +269,7 @@ public class MovieDBDAO implements IMovieDao
             // Sets the strings.
             ps.setString(1, LocalDate.now().toString());
             ps.setInt(2, movie.getId());
-            
+
             // Attempts to execute SQL code.
             int affected = ps.executeUpdate();
             if (affected < 1)

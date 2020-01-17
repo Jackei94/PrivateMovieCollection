@@ -51,11 +51,10 @@ public class MainController implements Initializable
     private boolean sortingByRating;
     private ObservableList<Movie> unwMovieList;
     private Category chosenCat;
-    
 
     @FXML
     private ListView<Category> categoryView;
-    
+
     @FXML
     private TextField searchField;
     @FXML
@@ -73,6 +72,12 @@ public class MainController implements Initializable
     @FXML
     private TableColumn<Movie, Double> ratingView;
 
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -91,49 +96,66 @@ public class MainController implements Initializable
         imdbView.setCellValueFactory(new PropertyValueFactory("imdbRating"));
         nameView.setCellValueFactory(new PropertyValueFactory("name"));
         ratingView.setCellValueFactory(new PropertyValueFactory("rating"));
-        
+
     }
 
+    /**
+     * Constructor for the MainController.
+     *
+     * @throws Exception
+     */
     public MainController() throws Exception
     {
         this.searchedMovies = FXCollections.observableArrayList();
     }
 
+    /**
+     * Opens the windows to create a new movie.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void movieNewButton(ActionEvent event) throws IOException
     {
         this.movieModel = movieModel;
         movieModel.setNewOrEdit("New Movie");
-
         Parent loader = FXMLLoader.load(getClass().getResource("MovieView.fxml"));
-
         Scene scene = new Scene(loader);
-
         Stage stage = new Stage();
-
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * Opens the windows to edit a movie.
+     *
+     * @param event
+     * @throws IOException
+     * @throws DalException
+     */
     @FXML
-    //Edits a Movie
     private void movieEditButton(ActionEvent event) throws IOException, DalException
     {
         this.movieModel = movieModel;
         movieModel.setNewOrEdit("Edit Movie");
         Movie movie = movieView.getSelectionModel().getSelectedItem();
         movieModel.addSelectedMovie(movie);
-        
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MovieView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         MovieViewController controller = fxmlLoader.getController();
         controller.setModel(movieModel);
         Stage stage = new Stage();
-
         stage.setScene(new Scene(root1));
         stage.show();
     }
 
+    /**
+     * Closes the application - with warning.... BUT WHY ?!
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void exitApp(ActionEvent event) throws IOException
     {
@@ -156,8 +178,12 @@ public class MainController implements Initializable
         }
     }
 
+    /**
+     * Search the movies, and sets the result as the view.
+     *
+     * @param event
+     */
     @FXML
-    //Search in movies
     private void searchMovie(KeyEvent event)
     {
         searchField.textProperty().addListener((observable, oldValue, newValue)
@@ -168,8 +194,13 @@ public class MainController implements Initializable
         });
     }
 
+    /**
+     * Deletes the selected movie, and alerts the user.
+     *
+     * @param event
+     * @throws DalException
+     */
     @FXML
-    //Deletes a movie
     private void movieDeleteButton(ActionEvent event) throws DalException
     {
         Movie selectedMovie = movieView.getSelectionModel().getSelectedItem();
@@ -186,8 +217,13 @@ public class MainController implements Initializable
         }
     }
 
+    /**
+     * Opens the view to make a new category.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    //Adds a new Category
     private void categoryNewButton(ActionEvent event) throws IOException
     {
         this.categoryModel = categoryModel;
@@ -203,8 +239,13 @@ public class MainController implements Initializable
         stage.show();
     }
 
+    /**
+     * Opens the view to edit the selected category.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    //Edits a category
     private void categoryEditButton(ActionEvent event) throws IOException
     {
         this.categoryModel = categoryModel;
@@ -261,20 +302,20 @@ public class MainController implements Initializable
     {
         try
         {
-        chosenCat = categoryView.getSelectionModel().getSelectedItem();
-        int checkCatId;
-        checkCatId = chosenCat.getId();
-        if (checkCatId == 1)
-        {
-            movieView.setItems(movieModel.getAllMovies());
-        } else if (checkCatId == 2)
-        {
-            movieView.setItems(movieModel.getAllUnwatchedMovies());
-        } else
-        {
-            movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
-        }
-        }catch (DalException ex)
+            chosenCat = categoryView.getSelectionModel().getSelectedItem();
+            int checkCatId;
+            checkCatId = chosenCat.getId();
+            if (checkCatId == 1)
+            {
+                movieView.setItems(movieModel.getAllMovies());
+            } else if (checkCatId == 2)
+            {
+                movieView.setItems(movieModel.getAllUnwatchedMovies());
+            } else
+            {
+                movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
+            }
+        } catch (DalException ex)
         {
             AlertWindow al = new AlertWindow();
             al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());

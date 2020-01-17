@@ -22,6 +22,11 @@ public class CatMovieManager
 
     private ICatMovieDao catMovieDao;
 
+    /**
+     * Constructor for CatMovieManager
+     *
+     * @throws Exception
+     */
     public CatMovieManager() throws Exception
     {
         catMovieDao = (ICatMovieDao) new CatMovieDBDAO();

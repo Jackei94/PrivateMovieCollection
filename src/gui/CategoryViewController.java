@@ -28,6 +28,7 @@ import javafx.stage.Stage;
  */
 public class CategoryViewController implements Initializable
 {
+
     private CategoryModel categoryModel;
 
     @FXML
@@ -41,6 +42,9 @@ public class CategoryViewController implements Initializable
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -52,7 +56,7 @@ public class CategoryViewController implements Initializable
         {
             Logger.getLogger(CategoryViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (!categoryModel.getSelectedCategory().isEmpty())
         {
             // Sets the data in fields if a song is selected.
@@ -61,10 +65,14 @@ public class CategoryViewController implements Initializable
         newOrEditCategory.textProperty().unbind();
         this.categoryModel = categoryModel;
         newOrEditCategory.textProperty().bind(categoryModel.newOrEditProperty());
-    } 
+    }
 
+    /**
+     * Closes the window.
+     *
+     * @param event
+     */
     @FXML
-    //Close the window
     private void categoryCancelButton(ActionEvent event)
     {
         categoryModel.getSelectedCategory().clear();
@@ -72,8 +80,14 @@ public class CategoryViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * Saves the data.
+     *
+     * @param event
+     * @throws DalException
+     * @throws BLLException
+     */
     @FXML
-    //Saves the data
     private void categorySaveButton(ActionEvent event) throws DalException, BLLException
     {
         if (!categoryModel.getSelectedCategory().isEmpty())
@@ -93,15 +107,20 @@ public class CategoryViewController implements Initializable
 
             categoryModel.createCategory(category);
         }
-        
+
         categoryModel.loadCategories();
         Stage stage = (Stage) categorySave.getScene().getWindow();
         stage.close();
     }
-    
+
+    /**
+     * Sets the model.
+     *
+     * @param model
+     */
     public void setModel(CategoryModel model)
     {
         this.categoryModel = model;
     }
-    
+
 }

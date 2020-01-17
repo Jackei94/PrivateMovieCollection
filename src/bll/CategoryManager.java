@@ -20,6 +20,11 @@ public class CategoryManager
 
     private ICategoryDao categoryDao;
 
+    /**
+     * Constructor for the CategoryManager.
+     *
+     * @throws Exception
+     */
     public CategoryManager() throws Exception
     {
         categoryDao = (ICategoryDao) new CategoryDBDAO();

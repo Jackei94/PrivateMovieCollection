@@ -27,16 +27,27 @@ public class CategoryDBDAO implements ICategoryDao
 
     private final DatabaseConnector dbCon;
 
+    /**
+     * Constructor for CategoryDBDAO.
+     *
+     * @throws Exception
+     */
     public CategoryDBDAO() throws Exception
     {
         dbCon = new DatabaseConnector();
     }
 
+    /**
+     * Returns all categories from Database.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<Category> getAllCategories() throws DalException
     {
         ArrayList<Category> allCategories = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Category EXCEPT SELECT '3', 'Select Category' FROM Category;";
@@ -65,11 +76,17 @@ public class CategoryDBDAO implements ICategoryDao
         }
     }
 
+    /**
+     * Returns all categories to our choiceboxes from Database.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<Category> getAllCategoriesToChoicebox() throws DalException
     {
         ArrayList<Category> allCategories = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM Category EXCEPT SELECT '1', 'All Movies' FROM Category EXCEPT SELECT '2', 'Unwatched' FROM Category;";
@@ -98,10 +115,16 @@ public class CategoryDBDAO implements ICategoryDao
         }
     }
 
+    /**
+     * Creates a category in the Database.
+     *
+     * @param category
+     * @throws DalException
+     */
     public void createCategory(Category category) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code
             String sql = "INSERT INTO Category (name) VALUES (?);";
@@ -127,10 +150,16 @@ public class CategoryDBDAO implements ICategoryDao
         }
     }
 
+    /**
+     * Edits the category in the Database.
+     *
+     * @param category
+     * @throws DalException
+     */
     public void editCategory(Category category) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE Category SET name=? WHERE id=?;";
@@ -152,10 +181,16 @@ public class CategoryDBDAO implements ICategoryDao
         }
     }
 
+    /**
+     * Deletes the category in the Database.
+     *
+     * @param selectedCategory
+     * @throws DalException
+     */
     public void deleteCategory(Category selectedCategory) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "DELETE FROM Category WHERE id=?;";

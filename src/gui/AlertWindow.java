@@ -8,21 +8,26 @@ package gui;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 
-
-
 /**
  *
  * @author Jacob, Christian, René & Charlie
  */
 public class AlertWindow
 {
-       //Show Error window and sets text
-  public void displayAlert(AlertType type, String title, String message )
-  {
-      Alert alert = new Alert(type);
-      alert.setTitle(title);
-      alert.setContentText(message);
-      alert.showAndWait();
-      
-  }
+
+    /**
+     * Show Error window and sets text
+     *
+     * @param type
+     * @param title
+     * @param message
+     */
+    public void displayAlert(AlertType type, String title, String message)
+    {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+
+    }
 }

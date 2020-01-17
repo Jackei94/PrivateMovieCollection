@@ -32,6 +32,6 @@ public interface IMovieDao
     List<String> getAllMoviesByName() throws DalException;
 
     List<Movie> getAllUnwatchedMovies() throws DalException;
-    
+
     void playedMovie(Movie movie) throws DalException;
 }

@@ -48,8 +48,6 @@ public class MovieViewController implements Initializable
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     private CatMovieModel catMovieModel;
-    private Movie chosenMov;
-    private ObservableList<Category> movCats;
  
     @FXML
     private TextField movieName;
@@ -89,30 +87,11 @@ public class MovieViewController implements Initializable
             AlertWindow al = new AlertWindow();
             al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
 
-//            chosenMov = movieModel.addSelectedMovie(chosenMov);
-            this.movCats = FXCollections.observableArrayList();
-            chosenMov = movieModel.getSelectedMovie().get(0);
-            try
-            {
-                movCats.addAll(catMovieModel.getCatForMovies(chosenMov));
-            } catch (DalException ex1)
-            {
-                AlertWindow a2 = new AlertWindow();
-            al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
-            }
-
-        } catch (Exception ex)
+        } catch (Exception ex) 
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try
-        {
 
-        } catch (Exception ex)
-        {
-            AlertWindow al = new AlertWindow();
-            al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
-        }
         if (!movieModel.getSelectedMovie().isEmpty())
         {
             // Sets the data in fields if a song is selected.
@@ -120,8 +99,6 @@ public class MovieViewController implements Initializable
             movieName.setText(movieModel.getSelectedMovie().get(0).getName());
             movieRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getRating()));
             movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
-            movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
-            System.out.println(movCats.get(0));
         }
         this.movieModel = movieModel;
         newOrEditMovie.textProperty().unbind();

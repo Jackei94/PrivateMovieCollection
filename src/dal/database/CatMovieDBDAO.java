@@ -29,16 +29,27 @@ public class CatMovieDBDAO implements ICatMovieDao
 
     private final DatabaseConnector dbCon;
 
+    /**
+     * Constructor for CatMovieDBDAO.
+     *
+     * @throws Exception
+     */
     public CatMovieDBDAO() throws Exception
     {
         dbCon = new DatabaseConnector();
     }
 
+    /**
+     * Returns all CatMovies from the Database.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<CatMovie> getAllCatMovies() throws DalException
     {
         ArrayList<CatMovie> allCatMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "SELECT * FROM CatMovie;";
@@ -66,13 +77,19 @@ public class CatMovieDBDAO implements ICatMovieDao
         }
     }
 
+    /**
+     * Creates CatMovies in the Database.
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void createCatMovies(CatMovie catMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code
-            String sql = "SELECT * FROM Movie INNER JOIN CatMovie ON Movie.id = CatMovie.movieId WHERE categoryId = (?)";
+            String sql = "INSERT INTO CatMovie (categoryId, movieId) VALUES (?,?);";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // Sets the Strings
             ps.setInt(1, catMovie.getCategoryId());
@@ -96,10 +113,16 @@ public class CatMovieDBDAO implements ICatMovieDao
         }
     }
 
+    /**
+     * Edits the CatMovie in the Database.
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void editCatMovies(CatMovie catMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "UPDATE CatMovie SET categoryId=? movieId=? WHERE id=?;";
@@ -123,10 +146,16 @@ public class CatMovieDBDAO implements ICatMovieDao
         }
     }
 
+    /**
+     * Deletes the CatMovie in the database.
+     *
+     * @param selectedCatMovie
+     * @throws DalException
+     */
     public void deleteCatMovies(CatMovie selectedCatMovie) throws DalException
     {
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             // SQL code. 
             String sql = "DELETE FROM CatMovie WHERE id=?;";
@@ -141,11 +170,18 @@ public class CatMovieDBDAO implements ICatMovieDao
         }
     }
 
+    /**
+     * Returns all categories for a chosen movie.
+     *
+     * @param chosenMovie
+     * @return
+     * @throws DalException
+     */
     public List<Category> getCatForMovies(Movie chosenMovie) throws DalException
     {
         ArrayList<Category> allCatForMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             Integer idMov = chosenMovie.getId();
             // SQL code. 
@@ -164,7 +200,6 @@ public class CatMovieDBDAO implements ICatMovieDao
 
                 allCatForMovies.add(category);
             }
-            System.out.println(allCatForMovies);
             //Return
             return allCatForMovies;
 
@@ -176,12 +211,19 @@ public class CatMovieDBDAO implements ICatMovieDao
         }
     }
 
+    /**
+     * Returns all movies on a chosen category.
+     *
+     * @param chosenCat
+     * @return
+     * @throws DalException
+     */
     public List<Movie> getMoviesFromCats(Category chosenCat) throws DalException
     {
 
         ArrayList<Movie> categoryMovies = new ArrayList<>();
         // Attempts to connect to the database.
-        try (Connection con = dbCon.getConnection())
+        try ( Connection con = dbCon.getConnection())
         {
             Integer idCat = chosenCat.getId();
             // SQL code. 
