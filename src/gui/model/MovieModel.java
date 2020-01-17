@@ -22,22 +22,23 @@ import javafx.scene.control.DatePicker;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class MovieModel
 {
 
     private static MovieModel instance;
-    private ObservableList<Movie> allMovies;
-    private MovieManager movieManager;
-    private StringProperty newOrEdit = new SimpleStringProperty();
-    private ObservableList<Movie> selectedMovie;
-    private ObservableList<Movie> unwMovieList;
-    private ObservableList<Movie> unwatchedMovies;
+    private final ObservableList<Movie> allMovies;
+    private final MovieManager movieManager;
+    private final StringProperty newOrEdit;
+    private final ObservableList<Movie> selectedMovie;
+    private final ObservableList<Movie> unwMovieList;
+    private final ObservableList<Movie> unwatchedMovies;
     DatePicker datePicker = new DatePicker(LocalDate.now());
 
     public MovieModel() throws Exception
     {
+        this.newOrEdit = new SimpleStringProperty();
         this.movieManager = new MovieManager();
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());

@@ -50,11 +50,7 @@ public class MovieViewController implements Initializable
     private CatMovieModel catMovieModel;
     private Movie chosenMov;
     private ObservableList<Category> movCats;
-    private Category testCat;
-    private int Category1;
-    private int Category2;
-    private int Category3;
-
+ 
     @FXML
     private TextField movieName;
     @FXML
@@ -96,13 +92,14 @@ public class MovieViewController implements Initializable
 //            chosenMov = movieModel.addSelectedMovie(chosenMov);
             this.movCats = FXCollections.observableArrayList();
             chosenMov = movieModel.getSelectedMovie().get(0);
-            movCats.addAll(catMovieModel.getCatForMovies(chosenMov));
-            testCat = catMovieModel.getCatForMovies(chosenMov).get(0);
-           
-            
-            
-//            System.out.println(testCat);
-            
+            try
+            {
+                movCats.addAll(catMovieModel.getCatForMovies(chosenMov));
+            } catch (DalException ex1)
+            {
+                AlertWindow a2 = new AlertWindow();
+            al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
+            }
 
         } catch (Exception ex)
         {
@@ -125,21 +122,9 @@ public class MovieViewController implements Initializable
             movieFile.setText(movieModel.getSelectedMovie().get(0).getFilelink());
             movieName.setText(movieModel.getSelectedMovie().get(0).getName());
             movieRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getRating()));
-
             movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
-//            movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
-//            movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
-
-
             movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
-//            movieCategoryOne.setValue(catMovieModel.getCatForMovies(chosenMov).get(0));
-//            movieCategoryOne.on
             System.out.println(movCats.get(0));
-            
-//          movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
-//          movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
-            
-            
 
         }
         this.movieModel = movieModel;
