@@ -11,6 +11,10 @@ package dal;
  */
 public class DalException extends Exception
 {
+    /**
+     * Catch the Exceptions
+     * @param msg 
+     */
     public DalException (String msg)
     {
     super( msg); 

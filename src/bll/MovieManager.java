@@ -17,13 +17,10 @@ import java.util.List;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class MovieManager
 {
-
-    private String idMovie;
-
     private IMovieDao movieDao;
 
     public MovieManager() throws Exception

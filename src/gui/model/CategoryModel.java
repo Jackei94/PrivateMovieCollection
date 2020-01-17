@@ -16,20 +16,21 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class CategoryModel
 {
 
     private static CategoryModel instance;
-    private ObservableList<Category> allCategories;
-    private ObservableList<Category> allCategoriesToChoicebox;
-    private ObservableList<Category> selectedCategory;
-    private CategoryManager categoryManager;
-    private StringProperty newOrEdit = new SimpleStringProperty();
+    private final ObservableList<Category> allCategories;
+    private final ObservableList<Category> allCategoriesToChoicebox;
+    private final ObservableList<Category> selectedCategory;
+    private final CategoryManager categoryManager;
+    private final StringProperty newOrEdit;
 
     public CategoryModel() throws DalException, Exception
     {
+        this.newOrEdit = new SimpleStringProperty();
         this.categoryManager = new CategoryManager();
         allCategories = FXCollections.observableArrayList();
         allCategories.addAll(categoryManager.getAllCategories());

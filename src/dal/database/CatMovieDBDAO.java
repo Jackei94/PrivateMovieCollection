@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 public class CatMovieDBDAO implements ICatMovieDao
 {
 
-    private DatabaseConnector dbCon;
+    private final DatabaseConnector dbCon;
 
     public CatMovieDBDAO() throws Exception
     {
@@ -48,7 +48,6 @@ public class CatMovieDBDAO implements ICatMovieDao
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next())
             {
-
                 // Add all to a list
                 CatMovie catMovie = new CatMovie();
                 catMovie.setCategoryId(rs.getInt("categoryId"));
@@ -139,7 +138,6 @@ public class CatMovieDBDAO implements ICatMovieDao
         } catch (SQLException ex)
         {
             Logger.getLogger(CatMovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
     }
 

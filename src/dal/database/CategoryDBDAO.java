@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class CategoryDBDAO implements ICategoryDao
 {
 
-    private DatabaseConnector dbCon;
+    private final DatabaseConnector dbCon;
 
     public CategoryDBDAO() throws Exception
     {
@@ -167,7 +167,6 @@ public class CategoryDBDAO implements ICategoryDao
         } catch (SQLException ex)
         {
             Logger.getLogger(CategoryDBDAO.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
     }
 }

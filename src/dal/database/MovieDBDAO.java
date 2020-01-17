@@ -5,7 +5,6 @@
  */
 package dal.database;
 
-import dal.database.DatabaseConnector;
 import be.Movie;
 import dal.DalException;
 import java.sql.Connection;
@@ -28,8 +27,8 @@ import java.time.Month;
 public class MovieDBDAO implements IMovieDao
 {
 
-    private DatabaseConnector dbCon;
-    private LocalDate unwatched;
+    private final DatabaseConnector dbCon;
+    private final LocalDate unwatched;
 
     public MovieDBDAO() throws Exception
     {
@@ -150,7 +149,6 @@ public class MovieDBDAO implements IMovieDao
         } catch (SQLException ex)
         {
             Logger.getLogger(MovieDBDAO.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
     }
 

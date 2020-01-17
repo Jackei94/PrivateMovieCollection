@@ -64,6 +64,7 @@ public class CategoryViewController implements Initializable
     } 
 
     @FXML
+    //Close the window
     private void categoryCancelButton(ActionEvent event)
     {
         categoryModel.getSelectedCategory().clear();
@@ -72,6 +73,7 @@ public class CategoryViewController implements Initializable
     }
 
     @FXML
+    //Saves the data
     private void categorySaveButton(ActionEvent event) throws DalException, BLLException
     {
         if (!categoryModel.getSelectedCategory().isEmpty())

@@ -40,7 +40,7 @@ import javafx.scene.control.Alert;
 /**
  * FXML Controller class
  *
- * @author Jacob, Christian, René & CharlieMo
+ * @author Jacob, Christian, René & Charlie
  */
 public class MovieViewController implements Initializable
 {
@@ -113,9 +113,6 @@ public class MovieViewController implements Initializable
             AlertWindow al = new AlertWindow();
             al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
         }
-        {
-
-        }
         if (!movieModel.getSelectedMovie().isEmpty())
         {
             // Sets the data in fields if a song is selected.
@@ -125,7 +122,6 @@ public class MovieViewController implements Initializable
             movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
             movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
             System.out.println(movCats.get(0));
-
         }
         this.movieModel = movieModel;
         newOrEditMovie.textProperty().unbind();
@@ -141,6 +137,7 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
+    //Choose a File
     public void chooseFile(ActionEvent event) throws IOException
     {
         FileChooser fileChooser = new FileChooser();
@@ -153,6 +150,7 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
+    //Close the window
     private void movieCancelButton(ActionEvent event)
     {
         movieModel.getSelectedMovie().clear();
@@ -161,11 +159,11 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
+    //Saves the data
     private void movieSaveButton(ActionEvent event) throws DalException, BLLException, IOException
     {
         if (!movieModel.getSelectedMovie().isEmpty())
         {
-
             //Edits.
             Movie movie = new Movie();
             Category category = new Category();
@@ -230,6 +228,7 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
+    //Search the movie on imdb.com
     private void checkIMDB(ActionEvent event) throws IOException
     {
         String movieURLName;

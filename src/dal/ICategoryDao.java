@@ -14,7 +14,6 @@ import java.util.List;
  */
 public interface ICategoryDao
 {
-
     /**
      * Interface for our Category
      *

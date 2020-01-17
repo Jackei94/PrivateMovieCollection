@@ -17,17 +17,17 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author LeChampDK
+ * @author Jacob, Christian, René & Charlie
  */
 public class CatMovieModel
 {
 
     private static CatMovieModel instance;
-    private ObservableList<CatMovie> allCatMovies;
-    private ObservableList<CatMovie> selectedCatMovie;
-    private ObservableList<Movie> catMovie;
-    private ObservableList<Category> movieCategory;
-    private CatMovieManager catMovieManager;
+    private final ObservableList<CatMovie> allCatMovies;
+    private final ObservableList<CatMovie> selectedCatMovie;
+    private final ObservableList<Movie> catMovie;
+    private final ObservableList<Category> movieCategory;
+    private final CatMovieManager catMovieManager;
 
     public CatMovieModel() throws DalException, Exception
     {

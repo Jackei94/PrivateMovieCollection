@@ -27,8 +27,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,7 +46,7 @@ public class MainController implements Initializable
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     private CatMovieModel catMovieModel;
-    private ObservableList<Movie> searchedMovies;
+    private final ObservableList<Movie> searchedMovies;
     private boolean sortingByName;
     private boolean sortingByRating;
     private ObservableList<Movie> unwMovieList;
@@ -118,6 +116,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Edits a Movie
     private void movieEditButton(ActionEvent event) throws IOException, DalException
     {
         this.movieModel = movieModel;
@@ -125,9 +124,6 @@ public class MainController implements Initializable
         Movie movie = movieView.getSelectionModel().getSelectedItem();
         movieModel.addSelectedMovie(movie);
         
-//        chosenMov = movieView.getSelectionModel().getSelectedItem();
-//        catMovieModel.getCatForMovies(chosenMov);
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MovieView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         MovieViewController controller = fxmlLoader.getController();
@@ -161,6 +157,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Search in movies
     private void searchMovie(KeyEvent event)
     {
         searchField.textProperty().addListener((observable, oldValue, newValue)
@@ -172,6 +169,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Deletes a movie
     private void movieDeleteButton(ActionEvent event) throws DalException
     {
         Movie selectedMovie = movieView.getSelectionModel().getSelectedItem();
@@ -189,6 +187,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Adds a new Category
     private void categoryNewButton(ActionEvent event) throws IOException
     {
         this.categoryModel = categoryModel;
@@ -205,6 +204,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Edits a category
     private void categoryEditButton(ActionEvent event) throws IOException
     {
         this.categoryModel = categoryModel;
@@ -222,6 +222,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Deletes a category
     private void categoryDeleteButton(ActionEvent event) throws DalException
     {
         Category selectedCategory = categoryView.getSelectionModel().getSelectedItem();
@@ -239,6 +240,7 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Plays the movie that is selected
     private void playMovieButton(ActionEvent event) throws IOException, DalException
     {
         Movie watchMovie = movieView.getSelectionModel().getSelectedItem();
@@ -247,12 +249,14 @@ public class MainController implements Initializable
     }
 
     @FXML
+    //Shows the list of bad an unwatched movies in 2 years
     private void uwMovies(ActionEvent event) throws IOException
     {
         uwMovieList.setItems(movieModel.unwMovieList());
     }
 
     @FXML
+    //Should set choiceboxes with a value but... nope
     private void onCategoryViewClicked(MouseEvent event) throws DalException
     {
         try
