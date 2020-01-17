@@ -29,6 +29,12 @@ public class CatMovieModel
     private final ObservableList<Category> movieCategory;
     private final CatMovieManager catMovieManager;
 
+    /**
+     * Constructor for CatMovieModel.
+     *
+     * @throws DalException
+     * @throws Exception
+     */
     public CatMovieModel() throws DalException, Exception
     {
         this.catMovieManager = new CatMovieManager();
@@ -39,6 +45,13 @@ public class CatMovieModel
         movieCategory = FXCollections.observableArrayList();
     }
 
+    /**
+     * Gets the instance of the model.
+     *
+     * @return
+     * @throws IOException
+     * @throws Exception
+     */
     public static CatMovieModel getInstance() throws IOException, Exception
     {
         if (instance == null)
@@ -47,18 +60,35 @@ public class CatMovieModel
         }
         return instance;
     }
-
+    
+    /**
+     * Loads all CatMovies.
+     *
+     * @throws DalException
+     */
     public void loadCatMovies() throws DalException
     {
         allCatMovies.clear();
         allCatMovies.addAll(catMovieManager.getAllMovies());
     }
 
+    /**
+     * Returns all CatMovies.
+     *
+     * @return
+     */
     public ObservableList<CatMovie> getAllCatMovies()
     {
         return allCatMovies;
     }
 
+    /**
+     * Returns all categories for a chosen movie.
+     *
+     * @param chosenMovie
+     * @return
+     * @throws DalException
+     */
     public ObservableList<Category> getCatForMovies(Movie chosenMovie) throws DalException
     {
         List<Category> tempMovies = catMovieManager.getCatForMovies(chosenMovie);
@@ -67,11 +97,23 @@ public class CatMovieModel
         return movieCategory;
     }
 
+    /**
+     * Creates the CatMovie.
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void createCatMovies(CatMovie catMovie) throws DalException
     {
         catMovieManager.createCatMovies(catMovie);
     }
 
+    /**
+     * Edits the CatMovie.
+     *
+     * @param catMovie
+     * @throws DalException
+     */
     public void editCategory(CatMovie catMovie) throws DalException
     {
         catMovieManager.editMovie(catMovie);
@@ -81,22 +123,45 @@ public class CatMovieModel
 
     }
 
+    /**
+     * Deletes the CatMovie.
+     *
+     * @param selectedCatMovie
+     * @throws DalException
+     */
     public void deleteCatMovie(CatMovie selectedCatMovie) throws DalException
     {
         catMovieManager.deleteMovie(selectedCatMovie);
         allCatMovies.remove(selectedCatMovie);
     }
 
+    /**
+     * Returns the selected CatMovie.
+     *
+     * @return
+     */
     public ObservableList<CatMovie> getSelectedCatMovie()
     {
         return selectedCatMovie;
     }
 
+    /**
+     * Adds the selected CatMovie
+     *
+     * @param catMovie
+     */
     public void addSelectedCategory(CatMovie catMovie)
     {
         selectedCatMovie.add(catMovie);
     }
 
+    /**
+     * Returns the movies on a category.
+     *
+     * @param chosenCat
+     * @return
+     * @throws DalException
+     */
     public ObservableList<Movie> getMoviesFromCats(Category chosenCat) throws DalException
     {
         List<Movie> tempMovies = catMovieManager.getMoviesFromCats(chosenCat);

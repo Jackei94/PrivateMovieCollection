@@ -164,4 +164,21 @@ public class Movie
             return 0;
         }
     }
+
+    /**
+     * Returns the toString method, so it displays the movies.
+     *
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        if (checkIfWatched() == 1)
+        {
+            return imdbRating + " ☆ - " + name + " (" + rating + ")";
+        } else
+        {
+            return imdbRating + " ★ - " + name + " (" + rating + ")";
+        }
+    }
 }

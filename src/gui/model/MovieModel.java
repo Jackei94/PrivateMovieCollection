@@ -36,6 +36,11 @@ public class MovieModel
     private final ObservableList<Movie> unwatchedMovies;
     DatePicker datePicker = new DatePicker(LocalDate.now());
 
+    /**
+     * Constructor for the MovieModel
+     *
+     * @throws Exception
+     */
     public MovieModel() throws Exception
     {
         this.newOrEdit = new SimpleStringProperty();
@@ -48,6 +53,13 @@ public class MovieModel
 
     }
 
+    /**
+     * Gets the instance of the model.
+     *
+     * @return
+     * @throws IOException
+     * @throws Exception
+     */
     public static MovieModel getInstance() throws IOException, Exception
     {
         if (instance == null)
@@ -57,11 +69,21 @@ public class MovieModel
         return instance;
     }
 
+    /**
+     * Returns all movies.
+     *
+     * @return
+     */
     public ObservableList<Movie> getAllMovies()
     {
         return allMovies;
     }
 
+    /**
+     * Loads all movies.
+     *
+     * @throws DalException
+     */
     public void loadMovies() throws DalException
     {
         allMovies.clear();
@@ -98,21 +120,45 @@ public class MovieModel
         return newOrEditProperty().get();
     }
 
+    /**
+     * Uses the search field to update the movie view.
+     *
+     * @param movie
+     * @param searchQuery
+     * @return
+     */
     public ArrayList<Movie> search(List<Movie> movie, String searchQuery)
     {
         return movieManager.search(movie, searchQuery);
     }
 
+    /**
+     * Creates the movie.
+     *
+     * @param movie
+     * @throws DalException
+     */
     public void createMovie(Movie movie) throws DalException
     {
         movieManager.createMovie(movie);
     }
 
+    /**
+     * Returns the selected movie.
+     *
+     * @return
+     */
     public ObservableList<Movie> getSelectedMovie()
     {
         return selectedMovie;
     }
 
+    /**
+     * Edits the movie.
+     *
+     * @param movie
+     * @throws DalException
+     */
     public void editMovie(Movie movie) throws DalException
     {
         movieManager.editMovie(movie);
@@ -121,27 +167,56 @@ public class MovieModel
         allMovies.addAll(movieManager.getAllMovies());
     }
 
+    /**
+     * Adds the selected movie.
+     *
+     * @param movie
+     */
     public void addSelectedMovie(Movie movie)
     {
         selectedMovie.add(movie);
     }
 
+    /**
+     * Deletes the selected movie.
+     *
+     * @param selectedMovie
+     * @throws DalException
+     */
     public void deleteMovie(Movie selectedMovie) throws DalException
     {
         movieManager.deleteMovie(selectedMovie);
         allMovies.remove(selectedMovie);
     }
 
+    /**
+     * Plays the movie.
+     *
+     * @param watchMovie
+     * @throws IOException
+     */
     public void playMovie(Movie watchMovie) throws IOException
     {
         movieManager.playMovie(watchMovie);
     }
 
+    /**
+     * Returns all movies by name.
+     *
+     * @return
+     * @throws DalException
+     */
     public List<String> getAllMoviesByName() throws DalException
     {
         return movieManager.getAllMoviesByName();
     }
 
+    /**
+     * Returns all unwatched movies.
+     *
+     * @return
+     * @throws DalException
+     */
     public ObservableList<Movie> getAllUnwatchedMovies() throws DalException
     {
         unwatchedMovies.clear();
@@ -149,11 +224,22 @@ public class MovieModel
         return unwatchedMovies;
     }
 
+    /**
+     * Updates the movie lastview.
+     *
+     * @param movie
+     * @throws DalException
+     */
     public void playedMovie(Movie movie) throws DalException
     {
         movieManager.playedMovie(movie);
     }
 
+    /**
+     * Returns the "bad" movies.
+     *
+     * @return
+     */
     public ObservableList<Movie> unwMovieList()
     {
         for (int i = 0; i < allMovies.size(); i++)
@@ -165,18 +251,13 @@ public class MovieModel
             boolean afterTwoYears = localLastViewDate.isBefore(dateMinusTwoYears);
 
             if (afterTwoYears == true && allMovies.get(i).getRating() < 6)
-
             {
                 if (afterTwoYears == true)
                 {
-
                     unwMovieList.add(allMovies.get(i));
                 }
             }
-
         }
         return unwMovieList;
-
     }
-
 }

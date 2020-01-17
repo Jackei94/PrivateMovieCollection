@@ -48,7 +48,7 @@ public class MovieViewController implements Initializable
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     private CatMovieModel catMovieModel;
- 
+
     @FXML
     private TextField movieName;
     @FXML
@@ -72,12 +72,16 @@ public class MovieViewController implements Initializable
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         try
         {
+            //Gets the instances from the MainController.
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
             catMovieModel = CatMovieModel.getInstance();
@@ -87,7 +91,7 @@ public class MovieViewController implements Initializable
             AlertWindow al = new AlertWindow();
             al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
 
-        } catch (Exception ex) 
+        } catch (Exception ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,18 +107,23 @@ public class MovieViewController implements Initializable
         this.movieModel = movieModel;
         newOrEditMovie.textProperty().unbind();
         newOrEditMovie.textProperty().bind(movieModel.newOrEditProperty());
-
+        // Sets the choicebox items.
         movieCategoryOne.setItems(categoryModel.getAllCategoriesToChoicebox());
         movieCategoryTwo.setItems(categoryModel.getAllCategoriesToChoicebox());
         movieCategoryThree.setItems(categoryModel.getAllCategoriesToChoicebox());
-
+        // Sets the starting value of the choiceboxes. 
         movieCategoryOne.setValue(categoryModel.getAllCategoriesToChoicebox().get(0));
         movieCategoryTwo.setValue(categoryModel.getAllCategoriesToChoicebox().get(0));
         movieCategoryThree.setValue(categoryModel.getAllCategoriesToChoicebox().get(0));
     }
 
+    /**
+     * Opens the view to choose a file.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    //Choose a File
     public void chooseFile(ActionEvent event) throws IOException
     {
         FileChooser fileChooser = new FileChooser();
@@ -126,8 +135,12 @@ public class MovieViewController implements Initializable
         movieName.setText(file.getName().replace(".mp4", ""));
     }
 
+    /**
+     * Closes the window, and returns the the main window.
+     *
+     * @param event
+     */
     @FXML
-    //Close the window
     private void movieCancelButton(ActionEvent event)
     {
         movieModel.getSelectedMovie().clear();
@@ -135,8 +148,15 @@ public class MovieViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * Saves data entered according the if its a new or an existing
+     *
+     * @param event
+     * @throws DalException
+     * @throws BLLException
+     * @throws IOException
+     */
     @FXML
-    //Saves the data
     private void movieSaveButton(ActionEvent event) throws DalException, BLLException, IOException
     {
         if (!movieModel.getSelectedMovie().isEmpty())
@@ -149,7 +169,7 @@ public class MovieViewController implements Initializable
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setImdbRating(Double.parseDouble(movieImdbRating.getText()));
             category.setName((String) movieCategoryOne.getItems().toString());
-            
+
             movie.setId(movieModel.getSelectedMovie().get(0).getId());
             movieModel.editMovie(movie);
             movieModel.getSelectedMovie().clear();
@@ -199,13 +219,24 @@ public class MovieViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * Sets the model.
+     *
+     * @param model
+     */
     public void setModel(MovieModel model)
     {
         this.movieModel = model;
     }
 
+    /**
+     * Opens the the default browser and searches for the movie name that has
+     * been entered.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    //Search the movie on imdb.com
     private void checkIMDB(ActionEvent event) throws IOException
     {
         String movieURLName;

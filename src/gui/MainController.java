@@ -262,8 +262,13 @@ public class MainController implements Initializable
         stage.show();
     }
 
+    /**
+     * Deletes the selected category, and alerts the user.
+     *
+     * @param event
+     * @throws DalException
+     */
     @FXML
-    //Deletes a category
     private void categoryDeleteButton(ActionEvent event) throws DalException
     {
         Category selectedCategory = categoryView.getSelectionModel().getSelectedItem();
@@ -280,8 +285,14 @@ public class MainController implements Initializable
         }
     }
 
+    /**
+     * Plays the movie.
+     *
+     * @param event
+     * @throws IOException
+     * @throws DalException
+     */
     @FXML
-    //Plays the movie that is selected
     private void playMovieButton(ActionEvent event) throws IOException, DalException
     {
         Movie watchMovie = movieView.getSelectionModel().getSelectedItem();
@@ -289,15 +300,25 @@ public class MainController implements Initializable
         movieModel.playedMovie(watchMovie);
     }
 
+    /**
+     * Shows the list of bad an unwatched movies in 2 years
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    //Shows the list of bad an unwatched movies in 2 years
     private void uwMovies(ActionEvent event) throws IOException
     {
         uwMovieList.setItems(movieModel.unwMovieList());
     }
 
+    /**
+     * Sets the current selected category, so the movie view can be updated.
+     *
+     * @param event
+     * @throws DalException
+     */
     @FXML
-    //Should set choiceboxes with a value but... nope
     private void onCategoryViewClicked(MouseEvent event) throws DalException
     {
         try
