@@ -238,7 +238,7 @@ public class CatMovieDBDAO implements ICatMovieDao
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
                 movie.setName(rs.getString("name"));
-                movie.setRating(rs.getFloat("rating"));
+                movie.setRating(rs.getDouble("rating"));
                 movie.setFilelink(rs.getString("filelink"));
                 movie.setLastview(rs.getDate("lastview").toLocalDate());
                 movie.setImdbRating(rs.getDouble("imdbrating"));
