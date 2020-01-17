@@ -73,7 +73,7 @@ public class CatMovieDBDAO implements ICatMovieDao
         try (Connection con = dbCon.getConnection())
         {
             // SQL code
-            String sql = "INSERT INTO CatMovie (categoryId, movieId) VALUES (?,?);";
+            String sql = "SELECT * FROM Movie INNER JOIN CatMovie ON Movie.id = CatMovie.movieId WHERE categoryId = (?)";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // Sets the Strings
             ps.setInt(1, catMovie.getCategoryId());
@@ -143,14 +143,15 @@ public class CatMovieDBDAO implements ICatMovieDao
         }
     }
 
-    public List<CatMovie> getCatForMovies() throws DalException
+    public List<Category> getCatForMovies(Movie chosenMovie) throws DalException
     {
-        ArrayList<CatMovie> allCatForMovies = new ArrayList<>();
+        ArrayList<Category> allCatForMovies = new ArrayList<>();
         // Attempts to connect to the database.
         try (Connection con = dbCon.getConnection())
         {
+            Integer idMov = chosenMovie.getId();
             // SQL code. 
-            String sql = "SELECT * FROM CatMovie WHERE movieId=?;";
+            String sql = "SELECT * FROM Category INNER JOIN CatMovie ON Category.id = CatMovie.categoryId WHERE movieId='" + idMov + "';";
             // Create statement.
             Statement statement = con.createStatement();
             // Attempts to execute the statement.
@@ -159,12 +160,13 @@ public class CatMovieDBDAO implements ICatMovieDao
             {
 
                 // Add all to a list
-                CatMovie catMovie = new CatMovie();
-                catMovie.setCategoryId(rs.getInt("categoryId"));
-                catMovie.setMovieId(rs.getInt("movieId"));
+                Category category = new Category();
+                category.setId(rs.getInt("id"));
+                category.setName(rs.getString("name"));
 
-                allCatForMovies.add(catMovie);
+                allCatForMovies.add(category);
             }
+            System.out.println(allCatForMovies);
             //Return
             return allCatForMovies;
 

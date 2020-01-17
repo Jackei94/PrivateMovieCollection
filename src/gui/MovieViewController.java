@@ -23,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,6 +48,9 @@ public class MovieViewController implements Initializable
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     private CatMovieModel catMovieModel;
+    private Movie chosenMov;
+    private ObservableList<Category> movCats;
+    private Category testCat;
     private int Category1;
     private int Category2;
     private int Category3;
@@ -69,7 +74,7 @@ public class MovieViewController implements Initializable
     @FXML
     private ChoiceBox<Category> movieCategoryThree;
     @FXML
-    private TextField imdbRating;
+    private TextField movieImdbRating;
 
     /**
      * Initializes the controller class.
@@ -82,10 +87,23 @@ public class MovieViewController implements Initializable
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
             catMovieModel = CatMovieModel.getInstance();
+
         } catch (DalException ex)
         {
             AlertWindow al = new AlertWindow();
             al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
+
+//            chosenMov = movieModel.addSelectedMovie(chosenMov);
+            this.movCats = FXCollections.observableArrayList();
+            chosenMov = movieModel.getSelectedMovie().get(0);
+            movCats.addAll(catMovieModel.getCatForMovies(chosenMov));
+            testCat = catMovieModel.getCatForMovies(chosenMov).get(0);
+           
+            
+            
+//            System.out.println(testCat);
+            
+
         } catch (Exception ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,9 +125,21 @@ public class MovieViewController implements Initializable
             movieFile.setText(movieModel.getSelectedMovie().get(0).getFilelink());
             movieName.setText(movieModel.getSelectedMovie().get(0).getName());
             movieRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getRating()));
-            imdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
+
+            movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
 //            movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
 //            movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
+
+
+            movieImdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
+//            movieCategoryOne.setValue(catMovieModel.getCatForMovies(chosenMov).get(0));
+//            movieCategoryOne.on
+            System.out.println(movCats.get(0));
+            
+//          movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
+//          movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
+            
+            
 
         }
         this.movieModel = movieModel;
@@ -154,10 +184,12 @@ public class MovieViewController implements Initializable
             //Edits.
             Movie movie = new Movie();
             Category category = new Category();
+            movie.setFilelink(movieFile.getText().trim());
             movie.setName(movieName.getText());
             movie.setRating(Double.parseDouble(movieRating.getText()));
+            movie.setImdbRating(Double.parseDouble(movieImdbRating.getText()));
             category.setName((String) movieCategoryOne.getItems().toString());
-            movie.setFilelink(movieFile.getText().trim());
+            
             movie.setId(movieModel.getSelectedMovie().get(0).getId());
             movieModel.editMovie(movie);
             movieModel.getSelectedMovie().clear();
@@ -171,7 +203,7 @@ public class MovieViewController implements Initializable
             movie.setName(movieName.getText());
             movie.setRating(Double.parseDouble(movieRating.getText()));
             movie.setFilelink(movieFile.getText());
-            movie.setImdbRating(Double.parseDouble(imdbRating.getText()));
+            movie.setImdbRating(Double.parseDouble(movieImdbRating.getText()));
             if (movieModel.getAllMoviesByName().contains(movieName.getText()))
             {
                 saveAlert.setContentText("OBS! Movie with that title already exists ");

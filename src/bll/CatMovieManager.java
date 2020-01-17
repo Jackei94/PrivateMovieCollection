@@ -77,9 +77,9 @@ public class CatMovieManager
      * @return
      * @throws DalException
      */
-    public List<CatMovie> getCatForMovies() throws DalException
+    public List<Category> getCatForMovies(Movie chosenMovie) throws DalException
     {
-        return catMovieDao.getCatForMovies();
+        return catMovieDao.getCatForMovies(chosenMovie);
     }
 
     /**

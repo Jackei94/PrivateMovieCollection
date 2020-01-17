@@ -42,13 +42,8 @@ public class MovieModel
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(movieManager.getAllMovies());
         selectedMovie = FXCollections.observableArrayList();
-
         unwMovieList = FXCollections.observableArrayList();
-      
-
         unwatchedMovies = FXCollections.observableArrayList();
-
-        
 
     }
 
@@ -153,6 +148,11 @@ public class MovieModel
         return unwatchedMovies;
     }
 
+    public void playedMovie(Movie movie) throws DalException
+    {
+        movieManager.playedMovie(movie);
+    }
+
     public ObservableList<Movie> unwMovieList()
     {
         for (int i = 0; i < allMovies.size(); i++)
@@ -163,15 +163,16 @@ public class MovieModel
             LocalDateTime localLastViewDate = LocalDateTime.of(lastViewDate, LocalDateTime.now().toLocalTime());
             boolean afterTwoYears = localLastViewDate.isBefore(dateMinusTwoYears);
 
-            if(afterTwoYears ==  true && allMovies.get(i).getRating()< 6) 
+            if (afterTwoYears == true && allMovies.get(i).getRating() < 6)
 
-            if (afterTwoYears == true)
             {
+                if (afterTwoYears == true)
+                {
 
-                unwMovieList.add(allMovies.get(i));
+                    unwMovieList.add(allMovies.get(i));
+                }
             }
-            
-          
+
         }
         return unwMovieList;
 

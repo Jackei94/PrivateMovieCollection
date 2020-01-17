@@ -23,7 +23,7 @@
       <Label layoutX="50.0" layoutY="135.0" text="Rating" />
       <TextField fx:id="movieRating" layoutX="140.0" layoutY="130.0" />
       <Label layoutX="51.0" layoutY="169.0" text="IMDB Rating" />
-      <TextField fx:id="imdbRating" layoutX="140.0" layoutY="165.0" />
+      <TextField fx:id="movieImdbRating" layoutX="140.0" layoutY="165.0" />
       <Button layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#checkIMDB" text="Check IMDB" />
       <Label layoutX="50.0" layoutY="207.0" text="Category 1" />
       <ChoiceBox fx:id="movieCategoryOne" layoutX="139.0" layoutY="203.0" prefWidth="150.0" />
