@@ -69,7 +69,7 @@ public class MovieDBDAO implements IMovieDao
         {
             Logger.getLogger(MovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Can´t make list");
         }
     }
 
@@ -92,7 +92,8 @@ public class MovieDBDAO implements IMovieDao
             int affectedRows = ps.executeUpdate();
             if (affectedRows < 1)
             {
-                throw new SQLException("Can't save movie");
+          
+                throw new DalException("Can't save movie");
             }
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -124,7 +125,7 @@ public class MovieDBDAO implements IMovieDao
             int affected = ps.executeUpdate();
             if (affected < 1)
             {
-                throw new SQLException("Can't edit movie");
+                throw new DalException("Can't edit movie");
             }
 
         } catch (SQLException ex)
@@ -207,7 +208,7 @@ public class MovieDBDAO implements IMovieDao
         {
             Logger.getLogger(MovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Can´t create list");
         }
     }
 

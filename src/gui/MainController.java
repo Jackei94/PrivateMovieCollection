@@ -266,6 +266,8 @@ public class MainController implements Initializable
     @FXML
     private void onCategoryViewClicked(MouseEvent event) throws DalException
     {
+        try
+        {
         chosenCat = categoryView.getSelectionModel().getSelectedItem();
         int checkCatId;
         checkCatId = chosenCat.getId();
@@ -278,6 +280,11 @@ public class MainController implements Initializable
         } else
         {
             movieView.setItems(catMovieModel.getMoviesFromCats(chosenCat));
+        }
+        }catch (DalException ex)
+        {
+            AlertWindow al = new AlertWindow();
+            al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
         }
     }
 

@@ -63,7 +63,7 @@ public class CatMovieDBDAO implements ICatMovieDao
         {
             Logger.getLogger(CatMovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Can´t do that");
         }
     }
 
@@ -172,7 +172,7 @@ public class CatMovieDBDAO implements ICatMovieDao
         {
             Logger.getLogger(CatMovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Can´t do that");
         }
     }
 
@@ -209,7 +209,7 @@ public class CatMovieDBDAO implements ICatMovieDao
         {
             Logger.getLogger(MovieDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Nope can´t do");
         }
 
     }

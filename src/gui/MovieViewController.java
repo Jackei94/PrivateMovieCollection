@@ -82,9 +82,24 @@ public class MovieViewController implements Initializable
             movieModel = MovieModel.getInstance();
             categoryModel = CategoryModel.getInstance();
             catMovieModel = CatMovieModel.getInstance();
+        } catch (DalException ex)
+        {
+            AlertWindow al = new AlertWindow();
+            al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
         } catch (Exception ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try
+        {
+
+        } catch (Exception ex)
+        {
+            AlertWindow al = new AlertWindow();
+            al.displayAlert(Alert.AlertType.ERROR, "ERROR - kunne ikke håndtere efterspørgslen", ex.getMessage());
+        }
+        {
+
         }
         if (!movieModel.getSelectedMovie().isEmpty())
         {
@@ -95,7 +110,7 @@ public class MovieViewController implements Initializable
             imdbRating.setText(Double.toString(movieModel.getSelectedMovie().get(0).getImdbRating()));
 //            movieCategoryOne.setValue(catMovieModel.getAllCatMovies().get(0).getCategoryId());
 //            movieCategoryOne.setValue(movieModel.getSelectedMovie().get(0).get);
-            
+
         }
         this.movieModel = movieModel;
         newOrEditMovie.textProperty().unbind();

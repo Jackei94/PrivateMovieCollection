@@ -61,7 +61,7 @@ public class CategoryDBDAO implements ICategoryDao
         {
             Logger.getLogger(CategoryDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Can´t do that");
         }
     }
 
@@ -94,7 +94,7 @@ public class CategoryDBDAO implements ICategoryDao
         {
             Logger.getLogger(CategoryDBDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
-            throw new DalException();
+            throw new DalException("Can´t do that");
         }
     }
 
